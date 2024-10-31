@@ -38,18 +38,24 @@
     </style>
 </head>
 <body>
-    <div class="login-container">
-        <h2>Iniciar Sesión</h2>
-        <p class="welcome-text">¡Bienvenido! Por favor, inicia sesión para continuar.</p> <!-- Texto agregado aquí -->
-        <form id="loginForm">
-            <input type="email" id="email" name="email" placeholder="Correo electrónico" required>
-            <div id="emailError" class="error"></div>
-            
-            <input type="password" id="password" name="password" placeholder="Contraseña" required>
-            <div id="passwordError" class="error"></div>
-            
-            <button type="submit">Iniciar Sesión</button>
-        </form>
+    <div class="main-container">
+        <div class="title-container">
+            <h1>Bienvenido a Local Andrades</h1>
+            <p>Explora nuestros servicios y descubre más.</p>
+        </div>
+        <div class="login-container">
+            <h2>Iniciar Sesión</h2>
+            <p class="welcome-text">¡Bienvenido! Por favor, inicia sesión para continuar.</p>
+            <form id="loginForm">
+                <input type="email" id="email" name="email" placeholder="Correo electrónico" required>
+                <div id="emailError" class="error"></div>
+                
+                <input type="password" id="password" name="password" placeholder="Contraseña" required>
+                <div id="passwordError" class="error"></div>
+                
+                <button type="submit">Iniciar Sesión</button>
+            </form>
+        </div>
     </div>
 
     <script>
