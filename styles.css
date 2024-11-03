@@ -1,3 +1,7 @@
-p{
-  font-size: 30px;
+.title-container {
+    flex: 1;
+    padding: 8rem;
+    text-align: left;
+    color: #333;
+    font-size: 7rem; /* Ajuste del tamaño de fuente */
 }
