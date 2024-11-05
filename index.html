@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Local Andrades</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
         body, html { height: 100%; display: flex; justify-content: center; align-items: center; }
@@ -31,8 +34,14 @@
         }
 
         .title-container h1 {
-            font-size: 6.5rem; /* Aumentamos el tamaño del texto */
-            color: #333;
+            font-size: 7rem;
+            font-family: 'Pacifico', sans-serif;
+            color: #ffffff;
+            text-shadow:
+                -1px -1px 0 black,
+                1px -1px 0 black,
+                -1px 1px 0 black,
+                1px 1px 0 black;
         }
 
         .login-container {
@@ -65,7 +74,6 @@
 </head>
 <body>
     <div class="main-container">
-        <!-- Cambiamos la etiqueta <font> a <h1> para mejorar el diseño y hacer el texto más grande -->
         <div class="title-container">
             <h1>Comercial Andrades</h1>
         </div>
@@ -73,8 +81,8 @@
             <h2>Iniciar Sesión</h2>
             <p class="welcome-text">¡Bienvenido! Por favor, inicia sesión para continuar.</p>
             <form id="loginForm">
-                <input type="email" id="email" name="email" placeholder="Correo electrónico" required>
-                <div id="emailError" class="error"></div>
+                <input type="text" id="rut" name="rut" placeholder="Rut" maxlength="12" required>
+                <div id="rutError" class="error"></div>
                 
                 <input type="password" id="password" name="password" placeholder="Contraseña" required>
                 <div id="passwordError" class="error"></div>
@@ -87,20 +95,34 @@
     <script>
         document.getElementById('loginForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            const email = document.getElementById('email').value;
+            const rut = document.getElementById('rut').value;
             const password = document.getElementById('password').value;
-            const emailError = document.getElementById('emailError');
+            const rutError = document.getElementById('rutError');
             const passwordError = document.getElementById('passwordError');
             
-            emailError.textContent = passwordError.textContent = '';
+            rutError.textContent = passwordError.textContent = '';
             
-            if (!/\S+@\S+\.\S+/.test(email)) emailError.textContent = 'Correo electrónico no válido.';
+            if (!rut) rutError.textContent = 'Por favor, ingrese su RUT.';
             if (password.length < 6) passwordError.textContent = 'Mínimo 6 caracteres para la contraseña.';
             
-            if (!emailError.textContent && !passwordError.textContent) {
+            if (!rutError.textContent && !passwordError.textContent) {
                 alert('Inicio de sesión exitoso!');
-                // Aquí puedes agregar la lógica para enviar los datos al servidor
             }
+        });
+
+        const rutInput = document.getElementById("rut");
+
+        rutInput.addEventListener("input", function(event) {
+            let valor = event.target.value.replace(/\D/g, "").split("").reverse().join("");
+            let rutFormateado = "";
+
+            for (let i = 0; i < valor.length; i++) {
+                if (i === 1) rutFormateado = "-" + rutFormateado;
+                if (i === 4 || i === 7) rutFormateado = "." + rutFormateado;
+                rutFormateado = valor[i] + rutFormateado;
+            }
+
+            event.target.value = rutFormateado;
         });
     </script>
 </body>
