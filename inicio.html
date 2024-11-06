@@ -3,32 +3,160 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inicio</title>
+    <title>Menú Lateral con Tabla</title>
     <style>
         body {
             font-family: Arial, sans-serif;
+            margin: 0;
             display: flex;
-            justify-content: center;
-            align-items: center;
+        }
+        .sidebar {
             height: 100vh;
-            background-color: #f0f0f0;
+            width: 250px;
+            background-color: #333;
+            padding-top: 20px;
+            position: fixed;
         }
-        .welcome-container {
-            text-align: center;
-            background: white;
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        .sidebar a {
+            padding: 15px 20px;
+            text-decoration: none;
+            font-size: 18px;
+            color: white;
+            display: block;
         }
-        h1 {
-            color: #333;
+        .sidebar a:hover {
+            background-color: #575757;
+        }
+        .content {
+            margin-left: 250px;
+            padding: 20px;
+            width: 100%;
+            margin-top: 50px; /* Ajusta este valor para mover la tabla más abajo */
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .form-container {
+            margin-bottom: 20px;
+        }
+        .form-container input {
+            margin-right: 10px;
+            padding: 5px;
+        }
+        .totals {
+            margin-top: 20px;
+            margin-right: 140px;
+            text-align: right; /* Alinea el texto a la derecha */
+        }
+        .totals div {
+            margin-bottom: 10px;
         }
     </style>
 </head>
 <body>
-    <div class="welcome-container">
-        <h1>Bienvenido a tu perfil</h1>
-        <p>Has iniciado sesión correctamente.</p>
+    <div class="sidebar">
+        <a href="#home">Nueva Venta</a>
+        <a href="#services">Cliente</a>
+        <a href="#clients">Porveedor</a>
+        <a href="#contact">Venta</a>
+        <a href="#contact">Contacto</a>
     </div>
+
+    <div class="content">
+        <h1>Punto de Venta</h1>
+        <div class="form-container">
+            <input type="text" id="codigo" placeholder="Código">
+            <input type="text" id="producto" placeholder="Producto">
+            <input type="number" id="cantidad" placeholder="Cantidad">
+            <input type="number" id="precio" placeholder="Precio">
+            <input type="number" id="stock" placeholder="Stock">
+            <button onclick="agregarProducto()">Agregar</button>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Código</th>
+                    <th>Producto</th>
+                    <th>Cantidad</th>
+                    <th>Precio</th>
+                    <th>Stock</th>
+                </tr>
+            </thead>
+            <tbody id="tablaProductos">
+                <!-- Aquí se agregarán las filas de productos -->
+                <tr>
+                    <td>Juan</td>
+                    <td>25</td>
+                    <td>Santiago</td>
+                </tr>
+                <tr>
+                    <td>María</td>
+                    <td>30</td>
+                    <td>Valparaíso</td>
+                </tr>
+                <tr>
+                    <td>Carlos</td>
+                    <td>28</td>
+                    <td>Concepción</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="totals">
+            <div>Total Neto: $<span id="totalNeto">0</span></div>
+            <div>Total IVA (19%): $<span id="totalIVA">0</span></div>
+            <div>Total: $<span id="totalProducto">0</span></div>
+        </div>
+    </div>
+
+    <script>
+        let totalNeto = 0;
+
+        function agregarProducto() {
+            const codigo = document.getElementById('codigo').value;
+            const producto = document.getElementById('producto').value;
+            const cantidad = parseFloat(document.getElementById('cantidad').value);
+            const precio = parseFloat(document.getElementById('precio').value);
+            const stock = parseFloat(document.getElementById('stock').value);
+
+            const tabla = document.getElementById('tablaProductos');
+            const fila = document.createElement('tr');
+
+            fila.innerHTML = `
+                <td>${codigo}</td>
+                <td>${producto}</td>
+                <td>${cantidad}</td>
+                <td>${precio}</td>
+                <td>${stock}</td>
+            `;
+
+            tabla.appendChild(fila);
+
+            // Calcular el total neto
+            totalNeto += cantidad * precio;
+            const totalIVA = totalNeto * 0.19;
+            const totalProducto = totalNeto + totalIVA;
+
+            // Actualizar los totales en la página
+            document.getElementById('totalNeto').textContent = totalNeto.toFixed(2);
+            document.getElementById('totalIVA').textContent = totalIVA.toFixed(2);
+            document.getElementById('totalProducto').textContent = totalProducto.toFixed(2);
+
+            // Limpiar los campos del formulario
+            document.getElementById('codigo').value = '';
+            document.getElementById('producto').value = '';
+            document.getElementById('cantidad').value = '';
+            document.getElementById('precio').value = '';
+            document.getElementById('stock').value = '';
+        }
+    </script>
 </body>
 </html>
