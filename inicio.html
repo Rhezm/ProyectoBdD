@@ -75,6 +75,7 @@
         }
     </style>
 </head>
+    <!-- Apartado de Menu de la pagina  -->
 <body onload="inicializarTotales(); mostrarSeccion('nuevaVenta')">
     <div class="sidebar">
         <a href="#" onclick="mostrarSeccion('nuevaVenta')">Nueva Venta</a>
@@ -113,8 +114,8 @@
 
             totalNeto += cantidad * precio;
             actualizarTotales();
-            
-            document.getElementById('codigo').value = '';
+    
+            document.getElementById('codigo').value = '';   <!-- Hace que los valores se limpien -->
             document.getElementById('producto').value = '';
             document.getElementById('cantidad').value = '';
             document.getElementById('precio').value = '';
@@ -134,7 +135,7 @@
             actualizarTotales();
         }
 
-        function actualizarTotales() {
+        function actualizarTotales() {           
             const totalIVA = totalNeto * 0.19;
             const totalProducto = totalNeto + totalIVA;
 
@@ -143,9 +144,11 @@
             document.getElementById('totalProducto').textContent = totalProducto.toFixed(2);
         }
 
+        /* Funcion principal donde se actualiza la pagina por apartado */
         function mostrarSeccion(seccion) {
             const content = document.getElementById('content');
 
+            /* Inicio de la pagina de nueva venta*/
             if (seccion === 'nuevaVenta') {
                 content.innerHTML = `
                     <h1>Punto de Venta</h1>
@@ -157,7 +160,7 @@
                         <input type="number" id="stock" placeholder="Stock">
                         <button onclick="agregarProducto()">Agregar</button>
                     </div>
-                    <table>
+                    <table>     /* Crea la tabla y añade por seccion */
                         <thead>
                             <tr>
                                 <th>Código</th>
@@ -271,7 +274,17 @@
                                 <input type="email" id="email" name="email">
                             </div>
                         </div>
+
                 `;
+
+            } else if (seccion === 'venta') {
+                content.innerHTML = `
+                    <h1>Contacto</h1>
+                    <p>Aquí puedes ver la información de contacto.</p>
+                    <!-- Agrega más contenido específico para "Contacto" aquí -->
+
+                `;
+                       
             } else if (seccion === 'contacto') {
                 content.innerHTML = `
                     <h1>Contacto</h1>
