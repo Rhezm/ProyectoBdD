@@ -31,7 +31,7 @@
             margin-left: 250px;
             padding: 20px;
             width: 100%;
-            margin-top: 10px; /* Ajusta este valor para mover la tabla más abajo */
+            margin-top: 10px;
         }
         table {
             width: 100%;
@@ -55,14 +55,23 @@
         .totals {
             margin-top: 20px;
             margin-right: 140px;
-            text-align: right; /* Alinea el texto a la derecha */
+            text-align: right;
         }
         .totals div {
             margin-bottom: 10px;
         }
+        .form-column { 
+            display: flex; 
+            flex-direction: column; 
+            max-width: 300px; 
+            margin: 0 auto; 
+        } 
+        .form-column label { 
+            margin-top: 10px; 
+        } 
     </style>
 </head>
-<body onload="inicializarTotales(); mostrarSeccion('nuevaVenta')"> <!-- Inicializar totales y mostrar Nueva Venta al cargar la página -->
+<body onload="inicializarTotales(); mostrarSeccion('nuevaVenta')">
     <div class="sidebar">
         <a href="#" onclick="mostrarSeccion('nuevaVenta')">Nueva Venta</a>
         <a href="#" onclick="mostrarSeccion('cliente')">Cliente</a>
@@ -98,11 +107,9 @@
 
             tabla.appendChild(fila);
 
-            // Calcular el total neto
             totalNeto += cantidad * precio;
             actualizarTotales();
             
-            // Limpiar los campos del formulario
             document.getElementById('codigo').value = '';
             document.getElementById('producto').value = '';
             document.getElementById('cantidad').value = '';
@@ -127,13 +134,11 @@
             const totalIVA = totalNeto * 0.19;
             const totalProducto = totalNeto + totalIVA;
 
-            // Actualizar los totales en la página
             document.getElementById('totalNeto').textContent = totalNeto.toFixed(2);
             document.getElementById('totalIVA').textContent = totalIVA.toFixed(2);
             document.getElementById('totalProducto').textContent = totalProducto.toFixed(2);
         }
 
-        // Función para mostrar diferentes secciones
         function mostrarSeccion(seccion) {
             const content = document.getElementById('content');
 
@@ -159,7 +164,6 @@
                             </tr>
                         </thead>
                         <tbody id="tablaProductos">
-                            <!-- Aquí se agregarán las filas de productos -->
                             <tr>
                                 <td>101</td>
                                 <td>Hilo</td>
@@ -193,22 +197,22 @@
                 content.innerHTML = `
                     <h1>Clientes</h1>
                     <p>Aquí puedes administrar tus clientes.</p>
-                    
-                    <label for="nombre">Codigo:</label>
-                    <input type="text" id="Codigo" name="Codigo">
+                    <div class="form-column">
+                        <label for="codigo">Código:</label>
+                        <input type="text" id="codigo" name="codigo">
 
-                    <label for="rut">Rut</label>
-                    <input type="text" id="rut" name="rut">
-                    
-                    <label for="nombre">Nombre:</label>
-                    <input type="text" id="nombre" name="nombre">
+                        <label for="rut">Rut:</label>
+                        <input type="text" id="rut" name="rut">
 
-                    <label for="telefono">Telefono:</label>
-                    <input type="text" id="telefono" name="telefono">
+                        <label for="nombre">Nombre:</label>
+                        <input type="text" id="nombre" name="nombre">
 
-                    <label for="direccion">Direccion:</label>
-                    <input type="text" id="direccion" name="direccion">
+                        <label for="telefono">Teléfono:</label>
+                        <input type="text" id="telefono" name="telefono">
 
+                        <label for="direccion">Dirección:</label>
+                        <input type="text" id="direccion" name="direccion">
+                    </div>
                 `;
             } else if (seccion === 'proveedor') {
                 content.innerHTML = `
