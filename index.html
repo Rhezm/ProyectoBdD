@@ -111,7 +111,7 @@
             if (password.length < 6) passwordError.textContent = 'Mínimo 6 caracteres para la contraseña.';
             
             if (!rutError.textContent && !passwordError.textContent) {
-                alert('Inicio de sesión exitoso!');
+                window.location.href = 'inicio.html';
             }
         });
 
