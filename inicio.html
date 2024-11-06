@@ -31,7 +31,7 @@
             margin-left: 250px;
             padding: 20px;
             width: 100%;
-            margin-top: 50px; /* Ajusta este valor para mover la tabla más abajo */
+            margin-top: 10px; /* Ajusta este valor para mover la tabla más abajo */
         }
         table {
             width: 100%;
@@ -62,59 +62,17 @@
         }
     </style>
 </head>
-<body>
+<body onload="mostrarSeccion('nuevaVenta')"> <!-- Mostrar Nueva Venta al cargar la página -->
     <div class="sidebar">
-        <a href="#inicio">Nueva Venta</a>
-        <a href="#clientes">Cliente</a>
-        <a href="#proveedor">Porveedor</a>
-        <a href="#venta">Venta</a>
-        <a href="#contacto">Contacto</a>
+        <a href="#" onclick="mostrarSeccion('nuevaVenta')">Nueva Venta</a>
+        <a href="#" onclick="mostrarSeccion('cliente')">Cliente</a>
+        <a href="#" onclick="mostrarSeccion('proveedor')">Proveedor</a>
+        <a href="#" onclick="mostrarSeccion('venta')">Venta</a>
+        <a href="#" onclick="mostrarSeccion('contacto')">Contacto</a>
     </div>
 
-    <div class="content">
-        <h1>Punto de Venta</h1>
-        <div class="form-container">
-            <input type="text" id="codigo" placeholder="Código">
-            <input type="text" id="producto" placeholder="Producto">
-            <input type="number" id="cantidad" placeholder="Cantidad">
-            <input type="number" id="precio" placeholder="Precio">
-            <input type="number" id="stock" placeholder="Stock">
-            <button onclick="agregarProducto()">Agregar</button>
-        </div>
-        <table>
-            <thead>
-                <tr>
-                    <th>Código</th>
-                    <th>Producto</th>
-                    <th>Cantidad</th>
-                    <th>Precio</th>
-                    <th>Stock</th>
-                </tr>
-            </thead>
-            <tbody id="tablaProductos">
-                <!-- Aquí se agregarán las filas de productos -->
-                <tr>
-                    <td>Juan</td>
-                    <td>25</td>
-                    <td>Santiago</td>
-                </tr>
-                <tr>
-                    <td>María</td>
-                    <td>30</td>
-                    <td>Valparaíso</td>
-                </tr>
-                <tr>
-                    <td>Carlos</td>
-                    <td>28</td>
-                    <td>Concepción</td>
-                </tr>
-            </tbody>
-        </table>
-        <div class="totals">
-            <div>Total Neto: $<span id="totalNeto">0</span></div>
-            <div>Total IVA (19%): $<span id="totalIVA">0</span></div>
-            <div>Total: $<span id="totalProducto">0</span></div>
-        </div>
+    <div class="content" id="content">
+        <!-- Este contenido se actualizará dinámicamente -->
     </div>
 
     <script>
@@ -156,6 +114,83 @@
             document.getElementById('cantidad').value = '';
             document.getElementById('precio').value = '';
             document.getElementById('stock').value = '';
+        }
+
+        // Función para mostrar diferentes secciones
+        function mostrarSeccion(seccion) {
+            const content = document.getElementById('content');
+
+            if (seccion === 'nuevaVenta') {
+                content.innerHTML = `
+                    <h1>Punto de Venta</h1>
+                    <div class="form-container">
+                        <input type="text" id="codigo" placeholder="Código">
+                        <input type="text" id="producto" placeholder="Producto">
+                        <input type="number" id="cantidad" placeholder="Cantidad">
+                        <input type="number" id="precio" placeholder="Precio">
+                        <input type="number" id="stock" placeholder="Stock">
+                        <button onclick="agregarProducto()">Agregar</button>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Código</th>
+                                <th>Producto</th>
+                                <th>Cantidad</th>
+                                <th>Precio</th>
+                                <th>Stock</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablaProductos">
+                            <!-- Aquí se agregarán las filas de productos -->
+                            <tr>
+                                <td>Juan</td>
+                                <td>25</td>
+                                <td>Santiago</td>
+                            </tr>
+                            <tr>
+                                <td>María</td>
+                                <td>30</td>
+                                <td>Valparaíso</td>
+                            </tr>
+                            <tr>
+                                <td>Carlos</td>
+                                <td>28</td>
+                                <td>Concepción</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="totals">
+                        <div>Total Neto: $<span id="totalNeto">0</span></div>
+                        <div>Total IVA (19%): $<span id="totalIVA">0</span></div>
+                        <div>Total: $<span id="totalProducto">0</span></div>
+                    </div>
+                `;
+            } else if (seccion === 'cliente') {
+                content.innerHTML = `
+                    <h1>Clientes</h1>
+                    <p>Aquí puedes administrar tus clientes.</p>
+                    <!-- Agrega más contenido específico para "Clientes" aquí -->
+                `;
+            } else if (seccion === 'proveedor') {
+                content.innerHTML = `
+                    <h1>Proveedores</h1>
+                    <p>Aquí puedes administrar tus proveedores.</p>
+                    <!-- Agrega más contenido específico para "Proveedores" aquí -->
+                `;
+            } else if (seccion === 'venta') {
+                content.innerHTML = `
+                    <h1>Ventas</h1>
+                    <p>Aquí puedes ver el historial de ventas.</p>
+                    <!-- Agrega más contenido específico para "Ventas" aquí -->
+                `;
+            } else if (seccion === 'contacto') {
+                content.innerHTML = `
+                    <h1>Contacto</h1>
+                    <p>Aquí puedes ver la información de contacto.</p>
+                    <!-- Agrega más contenido específico para "Contacto" aquí -->
+                `;
+            }
         }
     </script>
 </body>
