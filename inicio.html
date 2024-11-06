@@ -33,6 +33,13 @@
             width: 100%;
             margin-top: 10px;
         }
+        .form-container {
+            display: flex;
+            justify-content: space-between;
+        }
+        .form-column {
+            margin-right: 20px;
+        }
         table {
             width: 100%;
             border-collapse: collapse;
@@ -45,13 +52,6 @@
         th {
             background-color: #f2f2f2;
         }
-        .form-container {
-            margin-bottom: 20px;
-        }
-        .form-container input {
-            margin-right: 10px;
-            padding: 5px;
-        }
         .totals {
             margin-top: 20px;
             margin-right: 140px;
@@ -60,31 +60,19 @@
         .totals div {
             margin-bottom: 10px;
         }
-        .form-column { 
-            display: flex; 
-            flex-direction: column; 
-            max-width: 300px; 
-            margin: 0 auto; 
-        } 
-        .form-column label { 
-            margin-top: 10px;
-            margin-left: -428px; 
-        }
         .form-row {
             display: flex;
             align-items: center;
             margin-bottom: 10px;
         }
         .form-row label {
-            margin-right: -20px;
-            width: 100px; /* Ajusta este valor según tus necesidades */
+            margin-right: 10px;
+            width: 100px;
         }
         .form-row input {
-            width: 175px;
+            width: 200px;
             padding: 5px;
         }
-
-
     </style>
 </head>
 <body onload="inicializarTotales(); mostrarSeccion('nuevaVenta')">
@@ -214,36 +202,75 @@
                     <h1>Clientes</h1>
                     <p>Aquí puedes administrar tus clientes.</p>
                     <div class="form-container">
-                        <div class="form-row">
-                            <label for="nombre">Nombre:</label>
-                            <input type="text" id="nombre" name="nombre">
+                        <div class="form-column">
+                            <div class="form-row">
+                                <label for="nombre">Nombre:</label>
+                                <input type="text" id="nombre" name="nombre">
+                            </div>
+                            <div class="form-row">
+                                <label for="apellido">Apellido:</label>
+                                <input type="text" id="apellido" name="apellido">
+                            </div>
+                            <div class="form-row">
+                                <label for="telefono">Teléfono:</label>
+                                <input type="tel" id="telefono" name="telefono">
+                            </div>
+                            <div class="form-row">
+                                <label for="email">Email:</label>
+                                <input type="email" id="email" name="email">
+                            </div>
                         </div>
-                        <div class="form-row">
-                            <label for="apellido">Apellido:</label>
-                            <input type="text" id="apellido" name="apellido">
-                        </div>
-                        <div class="form-row">
-                            <label for="telefono">Teléfono:</label>
-                            <input type="tel" id="telefono" name="telefono">
-                        </div>
-                        <div class="form-row">
-                            <label for="email">Email:</label>
-                            <input type="email" id="email" name="email">
+                        <div class="table-column">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Nombre</th>
+                                        <th>Apellido</th>
+                                        <th>Teléfono</th>
+                                        <th>Email</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tablaClientes">
+                                    <tr>
+                                        <td>Juan</td>
+                                        <td>Pérez</td>
+                                        <td>123456789</td>
+                                        <td>juan@example.com</td>
+                                    </tr>
+                                    <tr>
+                                        <td>María</td>
+                                        <td>González</td>
+                                        <td>987654321</td>
+                                        <td>maria@example.com</td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
-
                 `;
             } else if (seccion === 'proveedor') {
                 content.innerHTML = `
                     <h1>Proveedores</h1>
                     <p>Aquí puedes administrar tus proveedores.</p>
-                    <!-- Agrega más contenido específico para "Proveedores" aquí -->
-                `;
-            } else if (seccion === 'venta') {
-                content.innerHTML = `
-                    <h1>Ventas</h1>
-                    <p>Aquí puedes ver el historial de ventas.</p>
-                    <!-- Agrega más contenido específico para "Ventas" aquí -->
+                    <div class="form-container">
+                        <div class="form-column">
+                            <div class="form-row">
+                                <label for="nombre">Nombre:</label>
+                                <input type="text" id="nombre" name="nombre">
+                            </div>
+                            <div class="form-row">
+                                <label for="apellido">Apellido:</label>
+                                <input type="text" id="apellido" name="apellido">
+                            </div>
+                            <div class="form-row">
+                                <label for="telefono">Teléfono:</label>
+                                <input type="tel" id="telefono" name="telefono">
+                            </div>
+                            <div class="form-row">
+                                <label for="email">Email:</label>
+                                <input type="email" id="email" name="email">
+                            </div>
+                        </div>
                 `;
             } else if (seccion === 'contacto') {
                 content.innerHTML = `
