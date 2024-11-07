@@ -78,7 +78,7 @@ function agregarProducto() {
     totalNeto += cantidad * precio;
     actualizarTotales();
     
-    document.getElementById('codigo').value = '';   <!-- Hace que los valores se limpien -->
+    document.getElementById('codigo').value = '';   /*Hace que los valores se limpien*/
     document.getElementById('producto').value = '';
     document.getElementById('cantidad').value = '';
     document.getElementById('precio').value = '';

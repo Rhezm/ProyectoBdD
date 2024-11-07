@@ -5,4 +5,5 @@ document.addEventListener("DOMContentLoaded", function() {
         <p>Aquí puedes ver la información de contacto.</p>
         <!-- Agrega más contenido específico para "Contacto" aquí -->
     `;
+    document.getElementById('sidebar').innerHTML = data;
 });
