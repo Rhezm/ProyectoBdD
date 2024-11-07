@@ -159,7 +159,9 @@
                         <input type="number" id="cantidad" placeholder="Cantidad">
                         <input type="number" id="precio" placeholder="Precio">
                         <input type="number" id="stock" placeholder="Stock">
-                        <button onclick="agregarProducto()">Agregar</button>
+                        if (codigo and producto and cantidad and precio and stock) {
+                            <button onclick="agregarProducto()">Agregar</button>
+                        }
                     </div>
                     <table>
                         <thead>
