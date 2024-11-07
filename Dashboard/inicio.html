@@ -156,9 +156,9 @@
                     <div class="form-container">
                         <input type="text" id="codigo" placeholder="Código" oninput="verificarCampos()">
                         <input type="text" id="producto" placeholder="Producto" oninput="verificarCampos()">
-                        <input type="number" id="cantidad" placeholder="Cantidad" oninput="verificarCampos()">
-                        <input type="number" id="precio" placeholder="Precio" oninput="verificarCampos()">
-                        <input type="number" id="stock" placeholder="Stock" oninput="verificarCampos()">
+                        <input type="number" id="cantidad" placeholder="Cantidad" oninput="verificarCampos() min="1">
+                        <input type="number" id="precio" placeholder="Precio" oninput="verificarCampos() min="1">
+                        <input type="number" id="stock" placeholder="Stock" oninput="verificarCampos() min="1">
                         <button id="agregarBtn" onclick="agregarProducto()" disabled>Agregar</button>
                     </div>
                     <table>
