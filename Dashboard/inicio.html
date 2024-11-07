@@ -10,6 +10,10 @@
             margin: 0;
             display: flex;
         }
+        h1 {
+           margin-left: 20px;
+           font-size: 45px;
+        }
         .sidebar {
             height: 100vh;
             width: 250px;
@@ -34,6 +38,7 @@
             margin-top: 10px;
         }
         .form-container {
+            margin-top: 55px;
             margin-bottom: 20px;
             display: flex;
             justify-content: space-between;
@@ -54,12 +59,20 @@
             background-color: #f2f2f2;
         }
         .totals {
-            margin-top: 20px;
-            margin-right: 140px;
+            background-color: #e0e0e0; /* Color de fondo para todo el bloque */
+            padding: 15px;
+            border-radius: 30px;
+            display: inline-block; /* Se ajusta al contenido */
             text-align: right;
+            margin-top: -80px;
+            margin-bottom: 40px;
+            position: absolute;
+            right: 30px; /* Ancla el bloque al lado derecho */
         }
+
         .totals div {
-            margin-bottom: 10px;
+            margin-top: 2px;
+            margin-bottom: 2px;
         }
         .form-row {
             display: flex;
@@ -153,12 +166,17 @@
             if (seccion === 'nuevaVenta') {
                 content.innerHTML = `
                     <h1>Punto de Venta</h1>
+                    <div class="totals">
+                        <div>Total Neto: $<span id="totalNeto">0</span></div>
+                        <div>Total IVA (19%): $<span id="totalIVA">0</span></div>
+                        <div>Total: $<span id="totalProducto">0</span></div>
+                    </div>
                     <div class="form-container">
                         <input type="text" id="codigo" placeholder="Código" oninput="verificarCampos()">
                         <input type="text" id="producto" placeholder="Producto" oninput="verificarCampos()">
-                        <input type="number" id="cantidad" placeholder="Cantidad" oninput="verificarCampos() min="1" step="1">
-                        <input type="number" id="precio" placeholder="Precio" oninput="verificarCampos() min="1" step="1">
-                        <input type="number" id="stock" placeholder="Stock" oninput="verificarCampos() min="1" step="1">
+                        <input type="number" id="cantidad" placeholder="Cantidad" oninput="verificarCampos()">
+                        <input type="number" id="precio" placeholder="Precio" oninput="verificarCampos()">
+                        <input type="number" id="stock" placeholder="Stock" oninput="verificarCampos()">
                         <button id="agregarBtn" onclick="agregarProducto()" disabled>Agregar</button>
                     </div>
                     <table>
@@ -195,11 +213,6 @@
                             </tr>
                         </tbody>
                     </table>
-                    <div class="totals">
-                        <div>Total Neto: $<span id="totalNeto">0</span></div>
-                        <div>Total IVA (19%): $<span id="totalIVA">0</span></div>
-                        <div>Total: $<span id="totalProducto">0</span></div>
-                    </div>
                 `;
                 verificarCampos();
             } else if (seccion === 'cliente') {
