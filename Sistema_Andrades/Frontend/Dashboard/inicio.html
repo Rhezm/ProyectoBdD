@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comercial Andrades - Sistema</title> 
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            display: flex;
+        }
+        h1 {
+           margin-left: 20px;
+           font-size: 45px;
+        }
+        .sidebar {
+            height: 100vh;
+            width: 250px;
+            background-color: #333;
+            padding-top: 20px;
+            position: fixed;
+        }
+        .sidebar a {
+            padding: 15px 20px;
+            text-decoration: none;
+            font-size: 18px;
+            color: white;
+            display: block;
+        }
+        .sidebar a:hover {
+            background-color: rgb(154,126,255);
+        }
+        .content {
+            margin-left: 250px;
+            padding: 20px;
+            width: 100%;
+            margin-top: 10px;
+        }
+        .form-container {
+            margin-top: 55px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .form-column {
+            margin-right: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 0px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .totals {
+            background-color: #e0e0e0; /* Color de fondo para todo el bloque */
+            padding: 15px;
+            border-radius: 30px;
+            display: inline-block; /* Se ajusta al contenido */
+            text-align: right;
+            margin-top: -80px;
+            margin-bottom: 40px;
+            position: absolute;
+            right: 30px; /* Ancla el bloque al lado derecho */
+        }
+
+        .totals div {
+            margin-top: 2px;
+            margin-bottom: 2px;
+        }
+        .form-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .form-row label {
+            margin-right: 10px;
+            width: 100px;
+        }
+        .form-row input {
+            width: 200px;
+            padding: 5px;
+        }
+    </style>
+</head>
+    <!-- Apartado de Menu de la pagina  -->
+<body onload="mostrarSeccion('nuevaVenta')">
+    <div class="sidebar">
+        <a href="nueva_venta.html">Nueva Venta</a>
+        <a href="cliente.html">Cliente</a>
+        <a href="proveedor.html">Proveedor</a>
+        <a href="venta.html">Venta</a>
+        <a href="contacto.html">Contacto</a>
+    </div>
+
+    <div class="content" id="content">
+        <!-- Este contenido se actualizará dinámicamente -->
+    </div>
+
+    <script>
+        let totalNeto = 0;
+
+        function agregarProducto() {
+            const codigo = document.getElementById('codigo').value;
+            const producto = document.getElementById('producto').value;
+            const cantidad = parseFloat(document.getElementById('cantidad').value);
+            const precio = parseFloat(document.getElementById('precio').value);
+            const stock = parseFloat(document.getElementById('stock').value);
+
+            const tabla = document.getElementById('tablaProductos');
+            const fila = document.createElement('tr');
+
+            fila.innerHTML = `
+                <td>${codigo}</td>
+                <td>${producto}</td>
+                <td>${cantidad}</td>
+                <td>${precio}</td>
+                <td>${stock}</td>
+            `;
+
+            tabla.appendChild(fila);
+
+            totalNeto += cantidad * precio;
+            actualizarTotales();
+    
+            document.getElementById('codigo').value = '';   <!-- Hace que los valores se limpien -->
+            document.getElementById('producto').value = '';
+            document.getElementById('cantidad').value = '';
+            document.getElementById('precio').value = '';
+            document.getElementById('stock').value = '';
+        }
+
+        function inicializarTotales() {
+            const filas = document.querySelectorAll('#tablaProductos tr');
+            filas.forEach(fila => {
+                const celdas = fila.querySelectorAll('td');
+                if (celdas.length > 0) {
+                    const cantidad = parseFloat(celdas[2].textContent);
+                    const precio = parseFloat(celdas[3].textContent);
+                    totalNeto += cantidad * precio;
+                }
+            });
+            actualizarTotales();
+        }
+
+        function actualizarTotales() {           
+            const totalIVA = totalNeto * 0.19;
+            const totalProducto = totalNeto + totalIVA;
+
+            document.getElementById('totalNeto').textContent = totalNeto.toFixed(2);
+            document.getElementById('totalIVA').textContent = totalIVA.toFixed(2);
+            document.getElementById('totalProducto').textContent = totalProducto.toFixed(2);
+        }
+
+        /* Funcion principal donde se actualiza la pagina por apartado */
+        function mostrarSeccion(seccion) {
+            const content = document.getElementById('content');
+
+            /* Inicio de la pagina de nueva venta*/
+            if (seccion === 'nuevaVenta') {
+                content.innerHTML = `
+                    <h1>Punto de Venta</h1>
+                    <div class="totals">
+                        <div>Total Neto: $<span id="totalNeto">0</span></div>
+                        <div>Total IVA (19%): $<span id="totalIVA">0</span></div>
+                        <div>Total: $<span id="totalProducto">0</span></div>
+                    </div>
+                    <div class="form-container">
+                        <input type="text" id="codigo" placeholder="Código" oninput="verificarCampos()">
+                        <input type="text" id="producto" placeholder="Producto" oninput="verificarCampos()">
+                        <input type="number" id="cantidad" placeholder="Cantidad" oninput="verificarCampos()">
+                        <input type="number" id="precio" placeholder="Precio" oninput="verificarCampos()">
+                        <input type="number" id="stock" placeholder="Stock" oninput="verificarCampos()">
+                        <button id="agregarBtn" onclick="agregarProducto()" disabled>Agregar</button>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Código</th>
+                                <th>Producto</th>
+                                <th>Cantidad</th>
+                                <th>Precio</th>
+                                <th>Stock</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablaProductos">
+                            <tr>
+                                <td>101</td>
+                                <td>Hilo</td>
+                                <td>10</td>
+                                <td>2500</td>
+                                <td>100</td>
+                            </tr>
+                            <tr>
+                                <td>102</td>
+                                <td>Botón</td>
+                                <td>20</td>
+                                <td>3500</td>
+                                <td>200</td>
+                            </tr>
+                            <tr>
+                                <td>103</td>
+                                <td>Aguja</td>
+                                <td>30</td>
+                                <td>4500</td>
+                                <td>300</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                `;
+                verificarCampos();
+            } else if (seccion === 'cliente') {
+                content.innerHTML = `
+                    <h1>Clientes</h1>
+                    <p>Aquí puedes administrar tus clientes.</p>
+                    <div class="form-container">
+                        <div class="form-column">
+                            <div class="form-row">
+                                <label for="nombre">Nombre:</label>
+                                <input type="text" id="nombre" name="nombre">
+                            </div>
+                            <div class="form-row">
+                                <label for="apellido">Apellido:</label>
+                                <input type="text" id="apellido" name="apellido">
+                            </div>
+                            <div class="form-row">
+                                <label for="telefono">Teléfono:</label>
+                                <input type="tel" id="telefono" name="telefono">
+                            </div>
+                            <div class="form-row">
+                                <label for="email">Email:</label>
+                                <input type="email" id="email" name="email">
+                            </div>
+                        </div>
+                        <div class="table-column">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Nombre</th>
+                                        <th>Apellido</th>
+                                        <th>Teléfono</th>
+                                        <th>Email</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tablaClientes">
+                                    <tr>
+                                        <td>Juan</td>
+                                        <td>Pérez</td>
+                                        <td>123456789</td>
+                                        <td>juan@example.com</td>
+                                    </tr>
+                                    <tr>
+                                        <td>María</td>
+                                        <td>González</td>
+                                        <td>987654321</td>
+                                        <td>maria@example.com</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                `;
+            } else if (seccion === 'proveedor') {
+                content.innerHTML = `
+                    <h1>Proveedores</h1>
+                    <p>Aquí puedes administrar tus proveedores.</p>
+                    <div class="form-container">
+                        <div class="form-column">
+                            <div class="form-row">
+                                <label for="nombre">Nombre:</label>
+                                <input type="text" id="nombre" name="nombre">
+                            </div>
+                            <div class="form-row">
+                                <label for="apellido">Apellido:</label>
+                                <input type="text" id="apellido" name="apellido">
+                            </div>
+                            <div class="form-row">
+                                <label for="telefono">Teléfono:</label>
+                                <input type="tel" id="telefono" name="telefono">
+                            </div>
+                            <div class="form-row">
+                                <label for="email">Email:</label>
+                                <input type="email" id="email" name="email">
+                            </div>
+                        </div>
+
+                `;
+
+            } else if (seccion === 'venta') {
+                content.innerHTML = `
+                    <h1>Registros de Ventas</h1>
+                    <p>Aquí puedes ver la información de contacto.</p>
+                    <!-- Agrega más contenido específico para "Contacto" aquí -->
+                `;
+                       
+            } else if (seccion === 'contacto') {
+                content.innerHTML = `
+                    <h1>Contacto</h1>
+                    <p>Aquí puedes ver la información de contacto.</p>
+                    <!-- Agrega más contenido específico para "Contacto" aquí -->
+                `;
+            }
+        }
+
+        function verificarCampos() {
+            const codigo = document.getElementById('codigo').value;
+            const producto = document.getElementById('producto').value;
+            const cantidad = document.getElementById('cantidad').value;
+            const precio = document.getElementById('precio').value;
+            const stock = document.getElementById('stock').value;
+            const agregarBtn = document.getElementById('agregarBtn');
+            if (codigo && producto && cantidad && precio && stock) {
+                agregarBtn.disabled = false;
+            } else {
+                agregarBtn.disabled = true;
+            }
+        }
+    </script>
+</body>
+</html>
