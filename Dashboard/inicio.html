@@ -154,11 +154,11 @@
                 content.innerHTML = `
                     <h1>Punto de Venta</h1>
                     <div class="form-container">
-                        <input type="text" id="codigo" placeholder="Código">
-                        <input type="text" id="producto" placeholder="Producto">
-                        <input type="number" id="cantidad" placeholder="Cantidad">
-                        <input type="number" id="precio" placeholder="Precio">
-                        <input type="number" id="stock" placeholder="Stock">
+                        <input type="text" id="codigo" placeholder="Código" oninput="verificarCampos()">
+                        <input type="text" id="producto" placeholder="Producto" oninput="verificarCampos()">
+                        <input type="number" id="cantidad" placeholder="Cantidad" oninput="verificarCampos()">
+                        <input type="number" id="precio" placeholder="Precio" oninput="verificarCampos()">
+                        <input type="number" id="stock" placeholder="Stock" oninput="verificarCampos()">
                         if (codigo and producto and cantidad and precio and stock) {
                             <button onclick="agregarProducto()">Agregar</button>
                         }
@@ -203,6 +203,7 @@
                         <div>Total: $<span id="totalProducto">0</span></div>
                     </div>
                 `;
+                verificarCampos();
             } else if (seccion === 'cliente') {
                 content.innerHTML = `
                     <h1>Clientes</h1>
@@ -285,20 +286,28 @@
                     <h1>Registros de Ventas</h1>
                     <p>Aquí puedes ver la información de contacto.</p>
                     <!-- Agrega más contenido específico para "Contacto" aquí -->
-
-
-
-
                 `;
                        
-
-
             } else if (seccion === 'contacto') {
                 content.innerHTML = `
                     <h1>Contacto</h1>
                     <p>Aquí puedes ver la información de contacto.</p>
                     <!-- Agrega más contenido específico para "Contacto" aquí -->
                 `;
+            }
+        }
+
+        function verificarCampos() {
+            const codigo = document.getElementById('codigo').value;
+            const producto = document.getElementById('producto').value;
+            const cantidad = document.getElementById('cantidad').value;
+            const precio = document.getElementById('precio').value;
+            const stock = document.getElementById('stock').value;
+            const agregarBtn = document.getElementById('agregarBtn');
+            if (codigo && producto && cantidad && precio && stock) {
+                agregarBtn.disabled = false;
+            } else {
+                agregarBtn.disabled = true;
             }
         }
     </script>
