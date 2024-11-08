@@ -26,7 +26,6 @@ h1 {
 }
 .sidebar a.logout {
     background-color: #444;
-    bottom: 0px;
 }
 
 .sidebar a.logout:hover {
