@@ -20,14 +20,15 @@ h1 {
     font-size: 18px;
     color: white;
     display: block;
+    flex-grow: 1;
 }
 .sidebar a:hover {
     background-color: rgb(154,126,255);
 }
 .sidebar a.logout {
-    margin-top: 30px;
     background-color: #444;
-    position: relative;
+    flex-grow: 0;
+    align-self: flex-end;
 }
 
 .sidebar a.logout:hover {
