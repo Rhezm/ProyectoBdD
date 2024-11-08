@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function() {
     const content = document.getElementById('content');
     content.innerHTML = `
-                <h1>Punto de Venta</h1>
+                <h1>Nueva venta</h1>
                 <div class="totals">
                     <div>Total Neto: $<span id="totalNeto">0</span></div>
                     <div>Total IVA (19%): $<span id="totalIVA">0</span></div>
