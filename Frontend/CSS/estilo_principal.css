@@ -24,6 +24,15 @@ h1 {
 .sidebar a:hover {
     background-color: rgb(154,126,255);
 }
+.sidebar a.logout {
+    margin-top: auto;
+    background-color: #444;
+    position: relative;
+}
+
+.sidebar a.logout:hover {
+    background-color: rgb(154,126,255);
+}
 .content {
     margin-left: 250px;
     padding: 20px;
