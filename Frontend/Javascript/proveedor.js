@@ -6,12 +6,8 @@ document.addEventListener("DOMContentLoaded", function() {
         <div class="form-container">
             <div class="form-column">
                 <div class="form-row">
-                    <label for="nombre">Nombre:</label>
-                    <input type="text" id="nombre" name="nombre">
-                </div>
-                <div class="form-row">
-                    <label for="apellido">Apellido:</label>
-                    <input type="text" id="apellido" name="apellido">
+                    <label for="proveedor">Proveedor:</label>
+                    <input type="text" id="proveedor" name="proveedor">
                 </div>
                 <div class="form-row">
                     <label for="telefono">Teléfono:</label>
@@ -29,7 +25,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 <table>
                     <thead>
                         <tr>
-                            <th>Nombre</th>
+                            <th>proveedor</th>
                             <th>Apellido</th>
                             <th>Teléfono</th>
                             <th>Email</th>
@@ -37,16 +33,14 @@ document.addEventListener("DOMContentLoaded", function() {
                     </thead>
                     <tbody id="tablaProveedores">
                         <tr>
-                            <td>Juan</td>
-                            <td>Pérez</td>
+                            <td>Reginella</td>
                             <td>123456789</td>
-                            <td>juan@example.com</td>
+                            <td>Reginella@example.com</td>
                         </tr>
                         <tr>
-                            <td>María</td>
-                            <td>González</td>
+                            <td>Exlin</td>
                             <td>987654321</td>
-                            <td>maria@example.com</td>
+                            <td>Exlin@example.com</td>
                         </tr>
                     </tbody>
                 </table>
@@ -54,15 +48,14 @@ document.addEventListener("DOMContentLoaded", function() {
         </div>
     `;
 
-    const nombre = document.getElementById('nombre');
-    const apellido = document.getElementById('apellido');
+    const proveedor = document.getElementById('proveedor');
     const telefono = document.getElementById('telefono');
     const email = document.getElementById('email');
     const botonAgregar = document.getElementById('agregar');
 
     // Función para verificar si todos los campos están llenos
     function verificarCampos() {
-        if (nombre.value && apellido.value && telefono.value && email.value) {
+        if (proveedor.value && telefono.value && email.value) {
             botonAgregar.disabled = false; // Habilitar el botón
         } else {
             botonAgregar.disabled = true; // Deshabilitar el botón
@@ -70,8 +63,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     // Escuchar cambios en los campos para verificar si se llenan
-    nombre.addEventListener('input', verificarCampos);
-    apellido.addEventListener('input', verificarCampos);
+    proveedor.addEventListener('input', verificarCampos);
     telefono.addEventListener('input', verificarCampos);
     email.addEventListener('input', verificarCampos);
 
@@ -79,8 +71,7 @@ document.addEventListener("DOMContentLoaded", function() {
     botonAgregar.addEventListener('click', function() {
         const nuevoProveedor = `
             <tr>
-                <td>${nombre.value}</td>
-                <td>${apellido.value}</td>
+                <td>${proveedor.value}</td>
                 <td>${telefono.value}</td>
                 <td>${email.value}</td>
             </tr>
@@ -89,8 +80,7 @@ document.addEventListener("DOMContentLoaded", function() {
         tablaProveedores.insertAdjacentHTML('beforeend', nuevoProveedor);
 
         // Limpiar los campos después de agregar el cliente
-        nombre.value = '';
-        apellido.value = '';
+        proveedor.value = '';
         telefono.value = '';
         email.value = '';
         verificarCampos(); // Verificar si los campos están vacíos para deshabilitar el botón
