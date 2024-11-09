@@ -27,7 +27,7 @@ let totalNeto = 0;
 function agregarProducto() {
     const cod_producto = document.getElementById('cod_producto').value;
     const producto = document.getElementById('producto').value;
-    const proveedor = document.getElementById('producto').value;
+    const proveedor = document.getElementById('proveedor').value;
 
     const tabla = document.getElementById('tablaProductos');
     const fila = document.createElement('tr');
