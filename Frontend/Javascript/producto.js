@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function() {
     const content = document.getElementById('content');
     content.innerHTML = `
-                <h1>Nueva venta</h1>
+                <h1>Productos</h1>
                 <div class="form-container">
                     <input type="text" id="cod_producto" placeholder="Código" oninput="verificarCampos()">
                     <input type="text" id="producto" placeholder="Producto" oninput="verificarCampos()">
@@ -22,8 +22,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 `;
 });
 
-let totalNeto = 0;
-
 function agregarProducto() {
     const cod_producto = document.getElementById('cod_producto').value;
     const producto = document.getElementById('producto').value;
@@ -39,11 +37,8 @@ function agregarProducto() {
     `;
 
     tabla.appendChild(fila);
-
-    totalNeto += cantidad * precio;
-    actualizarTotales();
     
-    document.getElementById('cod_producto').value = '';   /*Hace que los valores se limpien*/
+    document.getElementById('cod_producto').value = '';
     document.getElementById('producto').value = '';
     document.getElementById('proveedor').value = '';
 

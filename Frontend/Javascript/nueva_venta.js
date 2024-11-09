@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", function() {
                             <th>Stock</th>
                         </tr>
                     </thead>
-                    <tbody id="tablaProductos">
+                    <tbody id="tablaVentas">
                         <tr>
                             <td>101</td>
                             <td>Hilo</td>
@@ -61,7 +61,7 @@ function agregarProducto() {
     const precio = parseFloat(document.getElementById('precio').value);
     const stock = parseFloat(document.getElementById('stock').value);
 
-    const tabla = document.getElementById('tablaProductos');
+    const tabla = document.getElementById('tablaVentas');
     const fila = document.createElement('tr');
 
     fila.innerHTML = `
@@ -87,7 +87,7 @@ function agregarProducto() {
 }
 
 function inicializarTotales() {
-    const filas = document.querySelectorAll('#tablaProductos tr');
+    const filas = document.querySelectorAll('#tablaVentas tr');
     filas.forEach(fila => {
         const celdas = fila.querySelectorAll('td');
         if (celdas.length > 0) {
