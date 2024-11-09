@@ -51,12 +51,12 @@ function agregarProducto() {
 }
 
 function verificarCampos() {
-    const codigo = document.getElementById('cod_producto').value;
+    const cod_producto = document.getElementById('cod_producto').value;
     const producto = document.getElementById('producto').value;
-    const proveedor = document.getElementById('cantidad').value;
+    const proveedor = document.getElementById('proveedor').value;
     const agregarBtn = document.getElementById('agregarBtn');
     
-    if (codigo && producto && proveedor) {
+    if (cod_producto && producto && proveedor) {
         agregarBtn.disabled = false;
     } else {
         agregarBtn.disabled = true;
