@@ -52,7 +52,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 `;
 });
 
-/*Funciones de Operatibilidad */
 let totalNeto = 0;
 
 function agregarProducto() {
