@@ -273,12 +273,6 @@ END;
 -- ..datos en la venta correspondiente. El manejo de información, se llevará también a cabo
 -- ..a través de procedimientos almacenados, secuencias, funciones y cursores.
 
-id
-1, 2, 2,
-1, 4, 2,
-1, 5, 2,
-
-
 SELECT id_producto INTO CARRITO
 FROM JRSG_Detalle_Venta_Producto
 WHERE id_venta = ID_VENTA_v;
@@ -314,3 +308,13 @@ END;
 -- 5.- Aparte de lo anteriormente mencionado debe ser capaz de monitorear su base de datos
 -- ..con triggers que se encarguen de realizar labores de monitoreo y control de la misma,
 -- ..en función de la necesidad del negocio.
+
+---1.- TRIGGER PARA PASAR LOS ATRIBUTOS DE PROVEEDORES A MAYUSCULAS 
+CREATE OR REPLACE TRIGGER JRSG_TRIG_MAYUS_PROVEEDORES
+BEFORE INSERT ON JRSG_Proveedor 
+FOR EACH ROW
+BEGIN
+    :NEW.NOMBRE_PROVEEDOR := UPPER(:NEW.NOMBRE_PROVEEDOR);
+    :NEW.DIRECCION_PROVEEDOR := UPPER(:NEW.DIRECCION_PROVEEDOR);
+    :NEW.EMAIL_PROVEEDOR := UPPER(:NEW.EMAIL_PROVEEDOR);
+END;
