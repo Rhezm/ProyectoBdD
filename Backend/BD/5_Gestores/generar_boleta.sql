@@ -48,7 +48,7 @@ begin
     from dual;
 
     -- insertar la boleta con valores adicionales
-    insert into boleta (id_boleta, id_cliente, id_venta, id_pago, fecha_boleta, valor_neto, total_iva) 
+    insert into jrsg_boleta (id_boleta, id_cliente, id_venta, id_pago, fecha_boleta, valor_neto, total_iva) 
         values (v_id_boleta, v_id_cliente, p_id_venta, v_id_pago, sysdate, v_valor_neto, v_total_iva);
     commit;
 
