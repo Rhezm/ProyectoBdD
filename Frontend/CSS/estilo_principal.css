@@ -54,6 +54,9 @@ th, td {
 th {
     background-color: #f2f2f2;
 }
+.table-column {
+    margin-top: -7%;
+}
 .totals {
     background-color: #e0e0e0;
     padding: 15px;
