@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 <table>
                     <thead>
                         <tr>
-                            <th>proveedor</th>
+                            <th>Proveedor</th>
                             <th>Apellido</th>
                             <th>Teléfono</th>
                             <th>Email</th>
