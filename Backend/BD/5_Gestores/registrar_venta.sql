@@ -40,7 +40,7 @@ begin
 
         if v_stock_actual >= v_cantidad then
             -- registrar el detalle de la venta
-            insert into detalle_venta_producto (id_venta, id_producto, cantidad)
+            insert into jrsg_detalle_venta_producto (id_venta, id_producto, cantidad)
                 values (v_id_venta, v_id_producto, v_cantidad);
             commit;
            
