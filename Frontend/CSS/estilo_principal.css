@@ -4,8 +4,9 @@ body {
     display: flex;
 }
 h1 {
-   margin-left: 20px;
-   font-size: 45px;
+    margin-top: -5%;
+    margin-left: 20px;
+    font-size: 45px;
 }
 .sidebar {
     height: 100vh;
