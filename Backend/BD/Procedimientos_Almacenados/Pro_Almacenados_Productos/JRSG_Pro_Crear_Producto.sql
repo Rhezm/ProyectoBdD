@@ -1,7 +1,8 @@
 create or replace procedure JRSG_Pro_Crear_Producto (
     nombre_producto_p in varchar2,
     descripcion_producto_p in varchar2,
-    precio_p in number
+    precio_p in number,
+    id_categoria_p in number
 )is
     contador number;
     begin
@@ -13,7 +14,7 @@ create or replace procedure JRSG_Pro_Crear_Producto (
             lock table JRSG_Producto in row exclusive mode;
 
             insert into JRSG_Producto (id_producto, id_categoria, id_promocion, nombre_producto, descripcion_producto, precio)
-            values (JRSG_Sec_Generar_ID_Productos.nextval, JRSG_Sec_Generar_ID_Categorias.nextval, JRSG_Sec_Generar_ID_Promociones.nextval, nombre_producto_p, descripcion_producto_p, precio_p);
+            values (JRSG_Sec_Generar_ID_Productos.nextval, id_categoria_p, null, nombre_producto_p, descripcion_producto_p, precio_p);
             
             commit;
             dbms_output.put_line ('Producto con ID: '|| JRSG_Sec_Generar_ID_Productos.currval ||' se creo correctamente.');
