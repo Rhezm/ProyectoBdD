@@ -20,9 +20,6 @@ document.addEventListener("DOMContentLoaded", function() {
         </div>
     `;
 
-    // Insertamos el contenido HTML en el body
-    document.body.innerHTML = contenidoHTML;
-
     // Definimos los datos de la tabla
     const datos = [
         { id: 1, nombre: "Producto A", precio: 100 },
