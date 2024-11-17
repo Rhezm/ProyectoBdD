@@ -87,7 +87,7 @@ th {
     width: 200px;
     padding: 5px;
 }
-#generarReporte {
+.generarReporte {
     background-color: #4CAF50;
     color: white;
     padding: 10px 20px;
@@ -96,7 +96,7 @@ th {
     font-size: 16px;
 }
 
-#generarReporte:hover {
+.generarReporte:hover {
     background-color: #45a049;
 }
 
