@@ -29,5 +29,3 @@ document.getElementById("mostrarTablaBtn").addEventListener("click", function() 
     tbody.appendChild(tr);
   });
 });
-
-});
