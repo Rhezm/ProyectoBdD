@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function() {
         <p>Aquí puedes ver la información de tus ventas.</p>
         <button id="mostrarTablaBtn">Mostrar Tabla</button>
         <div id="tablaContenedor" style="display:none;">
-            <table margin-top:1%>
+            <table margin-top="1">
                 <thead>
                     <tr>
                         <th>ID</th>
