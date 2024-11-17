@@ -27,5 +27,4 @@ document.getElementById("mostrarTablaBtn").addEventListener("click", function() 
     const tr = document.createElement("tr");
     tr.innerHTML = `<td>${dato.id}</td><td>${dato.nombre}</td><td>${dato.precio}</td>`;
     tbody.appendChild(tr);
-  });
 });
