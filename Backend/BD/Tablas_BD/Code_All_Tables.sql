@@ -1,7 +1,6 @@
 /* Tablas solo con PK*/
 create table JRSG_Proveedor ( ---Se actualizo
     id_proveedor number,
-    id_producto number,
     nombre_proveedor varchar2(100),
     direccion_proveedor varchar2(200),
     telefono_proveedor number,
