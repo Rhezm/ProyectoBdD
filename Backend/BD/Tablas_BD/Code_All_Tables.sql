@@ -1,6 +1,7 @@
 /* Tablas solo con PK*/
 create table JRSG_Proveedor ( ---Se actualizo
     id_proveedor number,
+    id_producto number,
     nombre_proveedor varchar2(100),
     direccion_proveedor varchar2(200),
     telefono_proveedor number,
@@ -83,7 +84,7 @@ create table JRSG_Empleado ( --- Se actualizo
     apellido1_empleado varchar2(20),
     apellido2_empleado varchar2(20),
     telefono_empleado number,
-    email_empleado varhcar2(50),
+    email_empleado varchar2(50),
 
     constraint PK_JRSG_Empleado primary key (id_empleado),
     constraint FK_JRSG_Cargo foreign key (id_cargo) references JRSG_Cargo (id_cargo)
@@ -150,8 +151,8 @@ create table JRSG_Historial_Cargo ( --- NUeva Tabla
     final_fecha date,
 
     constraint PK_JRSG_Historial_Cargo primary key (inicio_fecha, id_empleado),
-    constraint FK_JRSG_Empleado foreign key (id_empleado) references JRGS_Empleado (id_empleado),
-    constraint FK_JRSG_Cargo foreign key (id_cargo) references JRSG_Cargo (id_cargo)
+    constraint FK_JRSG_Empleado foreign key (id_empleado) references JRSG_Empleado (id_empleado),
+    constraint FK_JRSG_Cargo1 foreign key (id_cargo) references JRSG_Cargo (id_cargo)
 );
 
 create table JRSG_Detalle_Compra_Producto (

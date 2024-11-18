@@ -6,5 +6,5 @@ create table JRSG_Historial_Cargo ( --- Nueva Tabla
 
     constraint PK_JRSG_Historial_Cargo primary key (inicio_fecha, id_empleado),
     constraint FK_JRSG_Empleado foreign key (id_empleado) references JRGS_Empleado (id_empleado),
-    constraint FK_JRSG_Cargo foreign key (id_cargo) references JRSG_Cargo (id_cargo)
+    constraint FK_JRSG_Cargo1 foreign key (id_cargo) references JRSG_Cargo (id_cargo)
 );

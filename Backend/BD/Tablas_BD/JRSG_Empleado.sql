@@ -5,7 +5,7 @@ create table JRSG_Empleado ( --- Se actualizo, se agrego id_cargo
     apellido1_empleado varchar2(20),
     apellido2_empleado varchar2(20),
     telefono_empleado number,
-    email_empleado varhcar2(50),
+    email_empleado varchar2(50),
 
     constraint PK_JRSG_Empleado primary key (id_empleado),
     constraint FK_JRSG_Cargo foreign key (id_cargo) references JRSG_Cargo (id_cargo)
