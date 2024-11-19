@@ -11,7 +11,7 @@ drop table JRSG_Compra;
 drop table JRSG_Cargo;
 drop table JRSG_Ubicacion_Bodega;
 drop table JRSG_Categoria;
-drop table JRSG_Cliente;s
+drop table JRSG_Cliente;
 drop table JRSG_Tipo_Pago;
 drop table JRSG_Promocion;
 drop table JRSG_Proveedor;

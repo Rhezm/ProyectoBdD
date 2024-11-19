@@ -120,6 +120,7 @@ create table JRSG_Producto ( --- Se actualizo
     nombre_producto varchar2(60),
     descripcion_producto varchar2(200),
     precio number,
+    precio_descuento number,
     stock number,
 
     constraint PK_JRSG_Producto primary key (id_producto),
