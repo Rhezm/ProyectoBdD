@@ -1,14 +1,22 @@
-create or replace trigger jrsg_trg_actualizar_stock_venta
-after insert on jrsg_detalle_venta_producto
-for each row
-begin
-  update jrsg_producto
-  set stock = stock - :new.cantidad
-  where id_producto = :new.id_producto;
+CREATE OR REPLACE TRIGGER trig_actualizar_stock
+AFTER INSERT ON Detalle_Venta_Producto
+FOR EACH ROW
+DECLARE
+  v_stock_actual NUMBER;
+BEGIN
+  -- Actualizar el stock en la tabla Producto
+  UPDATE Producto
+  SET stock = stock - :NEW.cantidad
+  WHERE id_producto = :NEW.id_producto;
 
-  -- validar que el stock no sea negativo
-  if (select stock from jrsg_producto where id_producto = :new.id_producto) < 0 then
-    raise_application_error(-20003, 'stock insuficiente para el producto ' || :new.id_producto);
-  end if;
-end;
+  -- Obtener el stock actualizado para validación
+  SELECT stock
+  INTO v_stock_actual
+  FROM Producto
+  WHERE id_producto = :NEW.id_producto;
 
+  -- Validar que el stock no sea negativo
+  IF v_stock_actual < 0 THEN
+    RAISE_APPLICATION_ERROR(-20003, 'Stock insuficiente para el producto con ID: ' || :NEW.id_producto);
+  END IF;
+END;
