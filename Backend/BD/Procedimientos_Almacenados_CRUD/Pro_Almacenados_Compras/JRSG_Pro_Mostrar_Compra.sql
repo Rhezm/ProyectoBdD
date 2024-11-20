@@ -8,7 +8,7 @@ create or replace procedure JRSG_Pro_Mostrar_Compra (
     v_fecha_compra JRSG_Compra.fecha_compra%type;
 
     begin
-        select count(*) into contador from JRSG_Compra where id_compra = id_compra_p;
+        select count(id_compra) into contador from JRSG_Compra;
 
         if (contador > 0) then
             select * into v_id_compra, v_detalle_compra, v_monto_compra, v_fecha_compra
