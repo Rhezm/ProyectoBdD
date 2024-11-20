@@ -1,13 +1,4 @@
-create sequence genera_id_boleta
-    increment by 1
-    maxvalue 999999
-    minvalue 1
-    nocache 
-nocycle;
-
----------------------------------------------------------------------------------------------
- 
-create or replace function f_jrsg_genera_boleta (
+create or replace function jrsg_func_genera_boleta (
     p_id_venta in number   -- id de la venta para generar la boleta
 ) return number   -- retorna el id de la boleta generada
 as
