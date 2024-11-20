@@ -12,7 +12,7 @@ create or replace procedure JRSG_Pro_Actualizar_Producto (
 )is
     contador number;
     begin
-        select count(*) into contador from JRSG_Producto where id_producto = id_producto_p;
+        select count(id_producto) into contador from JRSG_Producto;
 
         if (contador > 0) then
             lock table JRSG_Producto in row exclusive mode;
