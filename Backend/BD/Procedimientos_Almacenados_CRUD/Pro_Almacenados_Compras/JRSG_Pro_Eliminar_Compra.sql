@@ -3,7 +3,7 @@ create or replace procedure JRSG_Pro_Eliminar_Compra (
 ) is
     contador number;
     begin
-        select count(*) into contador from JRSG_Compra where id_compra = id_compra_p;
+        select count(id_compra) into contador from JRSG_Compra;
 
         if (contador > 0) then
             lock table JRSG_Compra in row exclusive mode;
