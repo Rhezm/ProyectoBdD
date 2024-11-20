@@ -10,7 +10,7 @@ create or replace procedure JRSG_Pro_Crear_Producto (
 )is
     contador number;
     begin
-        select count(*) into contador from JRSG_Producto where nombre_producto = nombre_producto_p;
+        select count(nombre_producto) into contador from JRSG_Producto;
 
         if (contador > 0) then
             raise_application_error (-20001, 'El Producto de nombre: '|| nombre_producto_p ||' ya esta ingresado en el sistema.');
