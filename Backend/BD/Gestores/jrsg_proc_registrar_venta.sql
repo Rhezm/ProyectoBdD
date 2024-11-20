@@ -1,16 +1,4 @@
-create sequence genera_id_reg_venta
-    increment by 1
-    maxvalue 999999
-    minvalue 1
-    nocache  -- sirve para que siga un orden y para que no se bugee
-nocycle;
-
-
-
-
-
--------------------------------------------------------------------------------------------------------
-create or replace procedure p_jrsg_registrar_venta (
+create or replace procedure jrsg_proc_registrar_venta (
     p_id_cliente in number,       -- cliente que realiza la compra
     p_productos in sys_refcursor -- cursor con productos y cantidades
 ) as
