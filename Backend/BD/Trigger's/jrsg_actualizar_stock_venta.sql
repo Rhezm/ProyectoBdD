@@ -10,8 +10,7 @@ BEGIN
   WHERE id_producto = :NEW.id_producto;
 
   -- Obtener el stock actualizado para validación
-  SELECT stock
-  INTO v_stock_actual
+  SELECT stock INTO v_stock_actual
   FROM JRSG_Producto
   WHERE id_producto = :NEW.id_producto;
 
