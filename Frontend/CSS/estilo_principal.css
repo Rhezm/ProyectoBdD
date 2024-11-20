@@ -28,6 +28,35 @@ h1 {
 .sidebar a.logout {
     background-color: #444;
 }
+.registros {
+    height: 80px;
+    width: 1050px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 10px;
+    display: flex;
+    justify-content: space-around; /* Distribuye los botones */
+    align-items: stretch; /* Hace que los enlaces ocupen toda la altura */
+}
+
+.registros a {
+    flex: 1;
+    padding: 15px;
+    font-size: 20px;
+    background-color: #333;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    margin: 0 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.registros a:hover {
+    background-color: #555;
+}
 .content {
     margin-left: 250px;
     padding: 20px;
@@ -46,30 +75,32 @@ h1 {
 table {
     width: 100%;
     border-collapse: collapse;
+    margin-top: 20px;
 }
 th, td {
-    border: 0px solid #ddd;
     padding: 8px;
+    border: 0px solid #ddd;
     text-align: left;
 }
 th {
     background-color: #f2f2f2;
 }
-.table-column {
-    margin-top: -5%;
+.table-container {
+    max-height: 400px;
+    overflow-y: auto;
 }
 .totals {
+    font-size: 150%;
     background-color: #e0e0e0;
-    padding: 15px;
-    border-radius: 30px;
+    padding: 12px;
+    border-radius: 15px;
     display: inline-block;
     text-align: right;
-    margin-top: -80px;
-    margin-bottom: 40px;
-    position: absolute;
+    margin-top: 20px;
+    position: fixed;
     right: 30px;
+    bottom: 30px;
 }
-
 .totals div {
     margin-top: 2px;
     margin-bottom: 2px;
@@ -99,4 +130,3 @@ th {
 #generarReporte:hover {
     background-color: #45a049;
 }
-
