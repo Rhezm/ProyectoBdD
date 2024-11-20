@@ -1,5 +1,5 @@
-CREATE OR REPLACE TRIGGER trig_actualizar_stock
-AFTER INSERT ON Detalle_Venta_Producto
+CREATE OR REPLACE TRIGGER JRSG_trig_actualizar_stock
+AFTER INSERT ON JRSG_Detalle_Venta_Producto
 FOR EACH ROW
 DECLARE
   v_stock_actual NUMBER;
@@ -12,7 +12,7 @@ BEGIN
   -- Obtener el stock actualizado para validación
   SELECT stock
   INTO v_stock_actual
-  FROM Producto
+  FROM JRSG_Producto
   WHERE id_producto = :NEW.id_producto;
 
   -- Validar que el stock no sea negativo
