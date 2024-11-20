@@ -49,6 +49,7 @@ document.addEventListener("DOMContentLoaded", function() {
                         </tr>
                     </tbody>
                 </table>
+                 <button id="mostrarTablaBtn">Mostrar Tabla</button>
                 `;
 });
 
