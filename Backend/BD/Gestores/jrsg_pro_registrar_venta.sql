@@ -1,4 +1,4 @@
-create or replace procedure jrsg_proc_registrar_venta (
+create or replace procedure jrsg_pro_registrar_venta (
     p_id_cliente in number,       -- cliente que realiza la compra
     p_productos in sys_refcursor -- cursor con productos y cantidades
 ) as
