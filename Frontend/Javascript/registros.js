@@ -1,8 +1,7 @@
 document.addEventListener("DOMContentLoaded", function() {
     const content = document.getElementById('content');
     content.innerHTML = `
-        <h1>Registro de Ventas</h1>
-        <p>Aquí puedes ver la información de tus ventas.</p>
+        <h1>Registros</h1>
         <div id="tablaContenedor" style="display:none;">
             <table id="tabla" style="margin-top:1rem;">
                 <thead>
