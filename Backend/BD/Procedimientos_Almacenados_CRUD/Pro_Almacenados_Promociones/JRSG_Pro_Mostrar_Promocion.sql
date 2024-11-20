@@ -9,7 +9,7 @@ create or replace procedure JRSG_Pro_Mostrar_Promocion (
     v_fecha_fin JRSG_Promocion.fecha_fin%type;
 
     begin
-        select count(*) into contador from JRSG_Promocion where id_promocion = id_promocion_p;
+        select count(id_promocion) into contador from JRSG_Promocion;
 
         if (contador > 0) then
             select * into v_id_promocion, v_nombre_promocion, v_descuento, v_fecha_inicio, v_fecha_fin
