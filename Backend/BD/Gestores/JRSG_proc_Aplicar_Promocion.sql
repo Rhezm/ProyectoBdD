@@ -1,4 +1,4 @@
-create or replace procedure JRSG_Aplicar_Promocion 
+create or replace procedure JRSG_proc_Aplicar_Promocion 
 is
     v_descuento number;
     v_precio number;
