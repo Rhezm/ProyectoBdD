@@ -1,4 +1,4 @@
-create or replace trigger trg_actualizar_stock_venta
+create or replace trigger jrsg_trg_actualizar_stock_venta
 after insert on jrsg_detalle_venta_producto
 for each row
 begin
