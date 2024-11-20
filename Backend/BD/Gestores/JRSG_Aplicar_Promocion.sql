@@ -12,7 +12,7 @@ is
           select pro.descuento into v_descuento from JRSG_Promocion pro where pro.id_promocion = p.id_promocion;
 
           v_precio := p.precio;
-          v_precio_descuento := v_precio - (v_precio * v_descuento / 100);
+          v_precio_descuento := v_precio - (v_precio * (v_descuento / 100));
 
           JRSG_Pro_Actualizar_Producto (p.id_producto, null, null, null, null, null, v_precio_descuento, null, null, campo_actu);
         end loop
