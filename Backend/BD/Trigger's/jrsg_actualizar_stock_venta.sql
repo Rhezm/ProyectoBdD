@@ -5,7 +5,7 @@ DECLARE
   v_stock_actual NUMBER;
 BEGIN
   -- Actualizar el stock en la tabla Producto
-  UPDATE Producto
+  UPDATE JRSG_Producto
   SET stock = stock - :NEW.cantidad
   WHERE id_producto = :NEW.id_producto;
 
