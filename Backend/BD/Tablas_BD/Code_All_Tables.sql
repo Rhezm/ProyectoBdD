@@ -38,14 +38,6 @@ create table JRSG_Categoria (
     constraint PK_JRSG_Categoria primary key (id_categoria)
 ); 
 
-create table JRSG_Ubicacion_Bodega (
-    id_ubicacion number,
-    nro_estante number,
-    nivel number,
-
-    constraint PK_JRSG_Ubicacion_Bodega primary key (id_ubicacion)
-); 
-
 create table JRSG_Cargo ( --- Nueva Tabla.
     id_cargo number,
     nombre_cargo varchar2(20),
@@ -115,8 +107,17 @@ create table JRSG_Producto ( --- Se actualizo
     constraint PK_JRSG_Producto primary key (id_producto),
     constraint FK_JRSG_Categoria foreign key (id_categoria) references JRSG_Categoria (id_categoria),
     constraint FK_JRSG_Promocion foreign key (id_promocion) references JRSG_Promocion (id_promocion)
-); 
+);
 
+create table JRSG_Ubicacion_Bodega (
+    id_ubicacion number,
+    id_producto number,
+    nro_estante number,
+    nivel number,
+
+    constraint PK_JRSG_Ubicacion_Bodega primary key (id_ubicacion),
+    constraint FK_JRSG_Ubicacion_Bodega_Id_Producto foreign key(id_producto) references JRSG_PRODUCTO(id_producto)
+);
 /* Tablas dos PK y dos FK */
 
 create table JRSG_Detalle_Compra_Producto (
