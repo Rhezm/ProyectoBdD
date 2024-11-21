@@ -56,13 +56,6 @@ create sequence JRSG_Sec_Generar_ID_Promociones
     maxvalue 1000
     nocache
     nocycle;
-create sequence JRSG_Sec_Generar_ID_Proveedores
-    start with 1 
-    increment by 1
-    minvalue 1
-    maxvalue 1000
-    nocache
-    nocycle;
 create sequence JRSG_Sec_Generar_ID_Tipo_Pagos
     start with 1 
     increment by 1
@@ -78,6 +71,13 @@ create sequence JRSG_Sec_Generar_ID_Ubicacion_Bodegas
     nocache
     nocycle;
 create sequence JRSG_Sec_Generar_ID_Ventas
+    start with 1 
+    increment by 1
+    minvalue 1
+    maxvalue 1000
+    nocache
+    nocycle;
+create sequence JRSG_Sec_Generar_ID_Cargos
     start with 1 
     increment by 1
     minvalue 1

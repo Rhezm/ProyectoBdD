@@ -19,6 +19,7 @@ create table JRSG_Tipo_Pago (
     constraint PK_JRSG_Tipo_Pago primary key (id_tipo_pago)
 ); 
 
+
 create table JRSG_Cliente (
     id_cliente number,
     nombre_cliente varchar2(20),
@@ -36,6 +37,14 @@ create table JRSG_Categoria (
     nombre_categoria varchar2(50),
 
     constraint PK_JRSG_Categoria primary key (id_categoria)
+); 
+
+create table JRSG_Cargo ( --- Nueva Tabla.
+    id_cargo number,
+    nombre_cargo varchar2(20),
+    salario number,
+
+    constraint PK_JRSG_Cargo primary key (id_cargo)
 );
 
 create table JRSG_Compra ( 
@@ -58,7 +67,8 @@ create table JRSG_Empleado ( --- Se actualizo
     telefono_empleado number,
     email_empleado varchar2(50),
 
-    constraint PK_JRSG_Empleado primary key (id_empleado)
+    constraint PK_JRSG_Empleado primary key (id_empleado),
+    constraint FK_JRSG_Cargo foreign key (id_cargo) references JRSG_Cargo (id_cargo)
 ); 
 
 
@@ -98,7 +108,7 @@ create table JRSG_Producto ( --- Se actualizo
     constraint PK_JRSG_Producto primary key (id_producto),
     constraint FK_JRSG_Categoria foreign key (id_categoria) references JRSG_Categoria (id_categoria),
     constraint FK_JRSG_Promocion foreign key (id_promocion) references JRSG_Promocion (id_promocion)
-);
+); 
 
 create table JRSG_Ubicacion_Bodega (
     id_ubicacion number,
@@ -107,8 +117,8 @@ create table JRSG_Ubicacion_Bodega (
     nivel number,
 
     constraint PK_JRSG_Ubicacion_Bodega primary key (id_ubicacion),
-    constraint FK_JRSG_Ubicacion_Bodega_Id_Producto foreign key(id_producto) references JRSG_PRODUCTO(id_producto)
-);
+    constraint FK_JRSG_Producto2 foreign key (id_producto) references JRSG_Producto (id_producto)
+); 
 /* Tablas dos PK y dos FK */
 
 create table JRSG_Detalle_Compra_Producto (
@@ -134,14 +144,6 @@ create table JRSG_Detalle_Venta_Producto ( --- Se actualizo
     constraint FK_JRSG_Producto1 foreign key (id_producto) references JRSG_Producto (id_producto)
 ); 
 
-create table JRSG_Detalle_Producto_Ubicacion ( --- Se Actualizo 
-    id_producto number,
-    id_ubicacion number,
-
-    constraint PK_Detalle_Producto_Ubicacion primary key (id_producto, id_ubicacion),
-    constraint FK_JRSG_Producto2 foreign key (id_producto) references JRSG_Producto (id_producto),
-    constraint FK_JRSG_Ubicacion_Bodega1 foreign key (id_ubicacion) references JRSG_Ubicacion_Bodega (id_ubicacion)
-);
 
 /* Una PK y Cuatro FK */
 create table JRSG_Boleta ( --- Se actualizo
