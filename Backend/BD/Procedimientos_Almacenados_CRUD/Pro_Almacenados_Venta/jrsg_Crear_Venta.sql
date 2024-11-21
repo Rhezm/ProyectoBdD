@@ -1,15 +1,17 @@
-create or replace procedure JRSG_Pro_Crear_Venta(
-    id_cliente_v in number,
-    fecha_venta_v date
-
+create or replace NONEDITIONABLE procedure JRSG_Pro_Crear_Venta (
+    id_cliente_v in number
 ) is
+    v_fecha_venta date;
+begin
     lock table JRSG_Venta in row exclusive mode;
+    
+    v_fecha_venta := SYSDATE;
 
-    insert into JRSG_Venta (id_venta, id_cliente, fecha_venta_v)
-    values (JRSG_Sec_Generar_ID_Venta.nextval, id_cliente_v, fecha_venta_v);
+    insert into JRSG_Venta (id_venta, id_cliente, fecha_venta)
+    values (JRSG_Sec_Generar_ID_Ventas.nextval, id_cliente_v, v_fecha_venta);
 
     commit;
-        dbms_output.put_line ('Venta con ID: '|| JRSG_Sec_Generar_ID_Venta.currval ||' se creo correctamente.');
+        dbms_output.put_line ('Venta con ID: '|| JRSG_Sec_Generar_ID_Ventas.currval ||' se creo correctamente.');
 
     exception
         when storage_error then
