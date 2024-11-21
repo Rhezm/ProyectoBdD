@@ -39,13 +39,13 @@ create table JRSG_Categoria (
     constraint PK_JRSG_Categoria primary key (id_categoria)
 ); 
 
-create table JRSG_Cargo ( --- Nueva Tabla.
+/*create table JRSG_Cargo ( --- Nueva Tabla.
     id_cargo number,
     nombre_cargo varchar2(20),
     salario number,
 
     constraint PK_JRSG_Cargo primary key (id_cargo)
-);
+);*/
 
 create table JRSG_Compra ( 
     id_compra number,
