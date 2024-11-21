@@ -1,4 +1,4 @@
-create procedure generarpago
+create procedure jsrg_pro_genera_pago
     @id_venta int,
     @id_tipo_pago int,
     @fecha_pago date
