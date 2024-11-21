@@ -29,20 +29,20 @@ h1 {
 }
 .registros {
     height: 80px;
-    width: 1050px;
+    width: 55%;
     position: absolute;
     right: 0;
     top: 0;
     padding: 10px;
     display: flex;
-    justify-content: space-around; /* Distribuye los botones */
-    align-items: stretch; /* Hace que los enlaces ocupen toda la altura */
+    justify-content: space-around;
+    align-items: stretch;
 }
 
 .registros a {
     flex: 1;
     padding: 15px;
-    font-size: 20px;
+    font-size: 16px;
     background-color: #333;
     color: white;
     text-decoration: none;
