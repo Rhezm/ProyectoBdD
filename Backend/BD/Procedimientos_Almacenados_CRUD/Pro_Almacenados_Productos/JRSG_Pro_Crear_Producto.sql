@@ -1,6 +1,6 @@
 create or replace procedure JRSG_Pro_Crear_Producto (
     id_categoria_p in number default null,
-    id_promocion_p in number,
+    id_promocion_p in number default null,
     nombre_producto_p in varchar2,
     descripcion_producto_p in varchar2,
     precio_p in number,
@@ -10,7 +10,7 @@ create or replace procedure JRSG_Pro_Crear_Producto (
 )is
     contador number;
     begin
-        select count(nombre_producto) into contador from JRSG_Producto;
+        select count(*) into contador from JRSG_Producto where nombre_producto = nombre_producto_p;
 
         if (contador > 0) then
             raise_application_error (-20001, 'El Producto de nombre: '|| nombre_producto_p ||' ya esta ingresado en el sistema.');

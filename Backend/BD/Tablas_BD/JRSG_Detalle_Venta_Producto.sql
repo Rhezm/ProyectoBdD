@@ -1,6 +1,6 @@
 create table JRSG_Detalle_Venta_Producto ( --- Se actualizo, se agrego cantidad.
-    id_producto number,
     id_venta number,
+    id_producto number,
     cantidad number,
     nombre_producto varchar2(60),
 

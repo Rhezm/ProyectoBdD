@@ -1,22 +1,20 @@
-create or replace NONEDITIONABLE procedure JRSG_Pro_Crear_Compra (
-    monto_compra_p in number default null
+create or replace procedure JRSG_Pro_Crear_Compra (
+    monto_compra_p in number,
+    fecha_compra_p in date
 ) is
-    v_fecha_compra date;
-begin
-    lock table JRSG_Compra in row exclusive mode;
-    
-    v_fecha_compra := SYSDATE;
-    
-    insert into JRSG_Compra(id_compra, monto_compra, fecha_compra) 
-    values (JRSG_Sec_Generar_ID_Compras.nextval, monto_compra_p, v_fecha_compra);
+    begin
+        lock table JRSG_Compra in row exclusive mode;
+        
+        insert into JRSG_Compra (id_compra, monto_compra, fecha_compra) 
+        values (JRSG_Sec_Generar_ID_Compras.nextval, monto_compra_p, fecha_compra_p);
 
-    commit;
-    dbms_output.put_line ('La orden de compra ID: ' || JRSG_Sec_Generar_ID_Compras.currval || ' se realizo correctamente');
+        commit;
+        dbms_output.put_line ('La orden de compra ID: ' || JRSG_Sec_Generar_ID_Compras.currval || ' se realizo correctamente');
 
-    exception
-        when storage_error then
-            raise_application_error (-6500, 'Error en el almacenamiento: No hay sufieciente espacio en el sistema.');
-        when others then
-            raise_application_error (-20004, 'Se ha producido un error inesperado.'|| sqlerrm);
-    rollback;    
-end;
+        exception
+            when storage_error then
+                raise_application_error (-6500, 'Error en el almacenamiento: No hay sufieciente espacio en el sistema.');
+            when others then
+                raise_application_error (-20004, 'Se ha producido un error inesperado.'|| sqlerrm);
+        rollback;    
+    end;

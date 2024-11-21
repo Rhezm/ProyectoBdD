@@ -12,17 +12,15 @@ create or replace procedure JRSG_Pro_Mostrar_Compra (
         if (contador > 0) then
             select * into v_id_compra, v_monto_compra, v_fecha_compra
             from JRSG_Compra where id_compra = id_compra_p;
-            
-            commit;
+
             dbms_output.put_line('Informacion Compra ID: ' || id_compra_p || CHR(10) ||
                               'Monto Compra: ' || v_monto_compra || CHR(10) || 
                               'Fecha Compra: ' || v_fecha_compra);
         else
-            dbms_output.put_line ('La compra id: '|| id_compra_p ||' no se encuentra en el sistema.');
+            dbms_output.put_line ('Promocion ID: '|| id_compra_p ||' no encontrado en el sistema.');
         end if;
 
         exception
             when others then
                 raise_application_error (-20002, 'Error inesperado: '|| sqlerrm);
-        rollback;
     end;

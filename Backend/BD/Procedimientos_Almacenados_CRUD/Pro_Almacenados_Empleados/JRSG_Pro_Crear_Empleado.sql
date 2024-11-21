@@ -4,7 +4,8 @@ create or replace procedure JRSG_Pro_Crear_Empleado (
     apellido1_empleado_p in varchar2,
     apellido2_empleado_p in varchar2,
     telefono_empleado_p in number,
-    email_empleado_p in varchar2
+    email_empleado_p in varchar2,
+    contraseña_p in varchar2
 ) is
     contador number;
     begin
@@ -16,8 +17,8 @@ create or replace procedure JRSG_Pro_Crear_Empleado (
         else
             lock table JRSG_Empleado in row exclusive mode;
 
-            insert into JRSG_Empleado (id_empleado, id_cargo, nombre_empleado, apellido1_empleado, apellido2_empleado, telefono_empleado, email_empleado)
-            values (JRSG_Sec_Generar_ID_Empleados.nextval, id_cargo_p, nombre_empleado_p, apellido1_empleado_p, apellido2_empleado_p, telefono_empleado_p, email_empleado_p);
+            insert into JRSG_Empleado (id_empleado, id_cargo, nombre_empleado, apellido1_empleado, apellido2_empleado, telefono_empleado, email_empleado, contraseña)
+            values (JRSG_Sec_Generar_ID_Empleados.nextval, id_cargo_p, nombre_empleado_p, apellido1_empleado_p, apellido2_empleado_p, telefono_empleado_p, email_empleado_p, contraseña_p);
 
             commit;
             dbms_output.put_line ('Empleado con ID: '|| JRSG_Sec_Generar_ID_Empleados.currval ||' se creo correctamente.');

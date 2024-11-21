@@ -6,7 +6,7 @@ create or replace procedure JRSG_Pro_Crear_Promocion (
 )is
     contador number;
     begin
-        select count(nombre_promocion) into contador from JRSG_Promocion;
+        select count(*) into contador from JRSG_Promocion where nombre_promocion = nombre_promocion_p;
 
         if (contador > 0) then
             raise_application_error (-20001, 'La promocion: '|| nombre_promocion_p ||' ya esta ingresado en el sistema.');

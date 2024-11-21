@@ -6,7 +6,7 @@ create or replace procedure JRSG_Pro_Eliminar_Promocion (
 ) is
     contador number;
     begin
-        select count(id_promocion) into contador from JRSG_Promocion;
+        select count(*) into contador from JRSG_Promocion where id_promocion = id_promocion_p;
 
         if (contador > 0) then
             lock table JRSG_Promocion in row exclusive mode;

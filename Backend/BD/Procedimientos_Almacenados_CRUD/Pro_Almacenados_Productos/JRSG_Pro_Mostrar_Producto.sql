@@ -12,7 +12,7 @@ create or replace procedure JRSG_Pro_Mostrar_Producto (
     v_stock JRSG_Producto.stock%type;
     v_proveedor JRSG_Producto.proveedor%type;
     begin
-        select count(id_producto) into contador from JRSG_Producto;
+        select count(*) into contador from JRSG_Producto where id_producto = id_producto_p;
 
         if (contador > 0) then
             select * into v_id_producto, v_id_categoria, v_id_promocion, v_nombre_producto, v_descripcion_producto, v_precio, v_precio_descuento, v_stock, v_proveedor

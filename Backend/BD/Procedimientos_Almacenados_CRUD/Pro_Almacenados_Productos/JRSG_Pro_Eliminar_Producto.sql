@@ -6,7 +6,7 @@ create or replace procedure JRSG_Pro_Eliminar_Producto (
 ) is
     contador number;
     begin
-        select count(id_producto) into contador from JRSG_Producto;
+        select count(*) into contador from JRSG_Producto where id_producto = id_producto_p;
 
         if (contador > 0) then
             lock table JRSG_Producto in row exclusive mode;
