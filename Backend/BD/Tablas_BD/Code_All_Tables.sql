@@ -69,6 +69,7 @@ create table JRSG_Empleado ( --- Se actualizo
     contrasena number,
 
     constraint PK_JRSG_Empleado primary key (id_empleado)
+    --constraint FK_JRSG_EMPLEADO_ID_CARGO foreign key(id_cargo) references JRSG_CARGO
 ); 
 
 
