@@ -36,14 +36,6 @@ create table JRSG_Categoria (
     nombre_categoria varchar2(50),
 
     constraint PK_JRSG_Categoria primary key (id_categoria)
-); 
-
-create table JRSG_Cargo ( --- Nueva Tabla.
-    id_cargo number,
-    nombre_cargo varchar2(20),
-    salario number,
-
-    constraint PK_JRSG_Cargo primary key (id_cargo)
 );
 
 create table JRSG_Compra ( 
@@ -66,8 +58,7 @@ create table JRSG_Empleado ( --- Se actualizo
     telefono_empleado number,
     email_empleado varchar2(50),
 
-    constraint PK_JRSG_Empleado primary key (id_empleado),
-    constraint FK_JRSG_Cargo foreign key (id_cargo) references JRSG_Cargo (id_cargo)
+    constraint PK_JRSG_Empleado primary key (id_empleado)
 ); 
 
 
