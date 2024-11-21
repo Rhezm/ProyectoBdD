@@ -1,98 +1,103 @@
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     const content = document.getElementById('content');
     content.innerHTML = `
-        <h1>Clientes</h1>
-        <p>Aquí puedes administrar tus clientes.</p>
-        <div class="form-container">
-            <div class="form-column">
-                <div class="form-row">
-                    <label for="nombre">Nombre:</label>
-                    <input type="text" id="nombre" name="nombre">
-                </div>
-                <div class="form-row">
-                    <label for="apellido">Apellido:</label>
-                    <input type="text" id="apellido" name="apellido">
-                </div>
-                <div class="form-row">
-                    <label for="telefono">Teléfono:</label>
-                    <input type="tel" id="telefono" name="telefono">
-                </div>
-                <div class="form-row">
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" name="email">
-                </div>
-                <div class="form-row">
-                    <button id="agregar" disabled>Agregar</button>
-                </div>
-            </div>
-            <div class="table-column">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Nombre</th>
-                            <th>Apellido</th>
-                            <th>Teléfono</th>
-                            <th>Email</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tablaClientes">
-                        <tr>
-                            <td>Juan</td>
-                            <td>Pérez</td>
-                            <td>123456789</td>
-                            <td>juan@example.com</td>
-                        </tr>
-                        <tr>
-                            <td>María</td>
-                            <td>González</td>
-                            <td>987654321</td>
-                            <td>maria@example.com</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+        <h1>Gestión Clientes</h1>
+        <div class="form-container" style="display: flex; flex-direction: column; align-items: flex-start; gap: 10px; margin-bottom: 20px;">
+            <input type="text" id="nombre" placeholder="Nombre" style="width: 300px; padding: 5px; box-sizing: border-box;">
+            <input type="text" id="apellido" placeholder="Apellido" style="width: 300px; padding: 5px; box-sizing: border-box;">
+            <input type="tel" id="telefono" placeholder="Teléfono" style="width: 300px; padding: 5px; box-sizing: border-box;">
+            <input type="email" id="email" placeholder="Email" style="width: 300px; padding: 5px; box-sizing: border-box;">
+            <button id="agregar" style="padding: 10px 15px; cursor: pointer;">Agregar</button>
+        </div>
+        <div class="table-container">
+            <table style="width: 100%; border-collapse: collapse; text-align: left; margin: 20px 0; font-size: 12px;">
+                <thead style="background-color: #f4f4f4;">
+                    <tr>
+                        <th style="padding: 10px; border: 1px solid #ddd;">Nombre</th>
+                        <th style="padding: 10px; border: 1px solid #ddd;">Apellido</th>
+                        <th style="padding: 10px; border: 1px solid #ddd;">Teléfono</th>
+                        <th style="padding: 10px; border: 1px solid #ddd;">Email</th>
+                        <th style="padding: 10px; border: 1px solid #ddd;">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="tablagestion">
+                    <tr>
+                        <td style="padding: 10px; border: 1px solid #ddd;">Juan</td>
+                        <td style="padding: 10px; border: 1px solid #ddd;">Pérez</td>
+                        <td style="padding: 10px; border: 1px solid #ddd;">123456789</td>
+                        <td style="padding: 10px; border: 1px solid #ddd;">juan.perez@example.com</td>
+                        <td style="padding: 10px; border: 1px solid #ddd;">
+                            <button onclick="editarFila(this)" style="background: none; border: none; cursor: pointer;">
+                                ✏️
+                            </button>
+                            <button onclick="eliminarFila(this)" style="background: none; border: none; cursor: pointer; margin-left: 10px;">
+                                🗑️
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     `;
 
-    const nombre = document.getElementById('nombre');
-    const apellido = document.getElementById('apellido');
-    const telefono = document.getElementById('telefono');
-    const email = document.getElementById('email');
-    const botonAgregar = document.getElementById('agregar');
+    // Función para editar una fila
+    window.editarFila = function (boton) {
+        const fila = boton.closest('tr');
+        const celdas = fila.querySelectorAll('td:not(:last-child)');
+        celdas.forEach((celda) => {
+            const valor = celda.textContent;
+            celda.innerHTML = `<input type="text" value="${valor}" style="width: 100%; box-sizing: border-box;">`;
+        });
+        boton.textContent = "💾";
+        boton.onclick = function () {
+            celdas.forEach((celda) => {
+                const input = celda.querySelector('input');
+                if (input) celda.textContent = input.value;
+            });
+            boton.textContent = "✏️";
+            boton.onclick = () => editarFila(boton);
+        };
+    };
 
-    // Función para verificar si todos los campos están llenos
-    function verificarCampos() {
-        if (nombre.value && apellido.value && telefono.value && email.value) {
-            botonAgregar.disabled = false; // Habilitar el botón
+    // Función para eliminar una fila
+    window.eliminarFila = function (boton) {
+        const fila = boton.closest('tr');
+        fila.remove();
+    };
+
+    // Función para agregar una nueva fila
+    document.getElementById('agregar').addEventListener('click', function () {
+        const nombre = document.getElementById('nombre').value.trim();
+        const apellido = document.getElementById('apellido').value.trim();
+        const telefono = document.getElementById('telefono').value.trim();
+        const email = document.getElementById('email').value.trim();
+
+        if (nombre && apellido && telefono && email) {
+            const nuevaFila = `
+                <tr>
+                    <td style="padding: 10px; border: 1px solid #ddd;">${nombre}</td>
+                    <td style="padding: 10px; border: 1px solid #ddd;">${apellido}</td>
+                    <td style="padding: 10px; border: 1px solid #ddd;">${telefono}</td>
+                    <td style="padding: 10px; border: 1px solid #ddd;">${email}</td>
+                    <td style="padding: 10px; border: 1px solid #ddd;">
+                        <button onclick="editarFila(this)" style="background: none; border: none; cursor: pointer;">
+                            ✏️
+                        </button>
+                        <button onclick="eliminarFila(this)" style="background: none; border: none; cursor: pointer; margin-left: 10px;">
+                            🗑️
+                        </button>
+                    </td>
+                </tr>
+            `;
+            document.getElementById('tablagestion').insertAdjacentHTML('beforeend', nuevaFila);
+
+            // Limpiar campos después de agregar
+            document.getElementById('nombre').value = '';
+            document.getElementById('apellido').value = '';
+            document.getElementById('telefono').value = '';
+            document.getElementById('email').value = '';
         } else {
-            botonAgregar.disabled = true; // Deshabilitar el botón
+            alert('Por favor, completa todos los campos antes de agregar.');
         }
-    }
-
-    // Escuchar cambios en los campos para verificar si se llenan
-    nombre.addEventListener('input', verificarCampos);
-    apellido.addEventListener('input', verificarCampos);
-    telefono.addEventListener('input', verificarCampos);
-    email.addEventListener('input', verificarCampos);
-
-    // Función para agregar cliente
-    botonAgregar.addEventListener('click', function() {
-        const nuevoCliente = `
-            <tr>
-                <td>${nombre.value}</td>
-                <td>${apellido.value}</td>
-                <td>${telefono.value}</td>
-                <td>${email.value}</td>
-            </tr>
-        `;
-        const tablaClientes = document.getElementById('tablaClientes');
-        tablaClientes.insertAdjacentHTML('beforeend', nuevoCliente);
-
-        // Limpiar los campos después de agregar el cliente
-        nombre.value = '';
-        apellido.value = '';
-        telefono.value = '';
-        email.value = '';
-        verificarCampos(); // Verificar si los campos están vacíos para deshabilitar el botón
     });
 });
