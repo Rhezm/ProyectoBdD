@@ -1,4 +1,4 @@
-create or replace procedure JRSG_Pro_Actualizar_Producto (
+create or replace NONEDITIONABLE procedure JRSG_Pro_Actualizar_Producto (
     id_producto_p in number,
     id_categoria_p in number default null, --- modificar: se tiene que hacer mediante las operaciones de esa tabla-
     id_promocion_p in number default null, --- Modificar: se tiene que hacer mediante las operaciones de esa tabla.
@@ -7,12 +7,11 @@ create or replace procedure JRSG_Pro_Actualizar_Producto (
     precio_p in number default null, --- Columna 6
     precio_descuento_p in number default null, --- Columna 7
     stock_p in number default null, --- Columna 8
-    proveedor_p in varchar2 default null, --- Columna 9
     campo_actualizar in number
 )is
     contador number;
     begin
-        select count(*) into contador from JRSG_Producto where id_producto = id_producto_p;
+        select count(id_producto) into contador from JRSG_Producto;
 
         if (contador > 0) then
             lock table JRSG_Producto in row exclusive mode;
@@ -33,9 +32,6 @@ create or replace procedure JRSG_Pro_Actualizar_Producto (
                 when 8 then
                     update JRSG_Producto set stock = stock_p where id_producto = id_producto_p;
                     dbms_output.put_line ('El stock del producto con ID: ' || id_producto_p || ' se ha actualizado a: ' || stock_p);
-                when 9 then
-                    update JRSG_Producto set proveedor = proveedor_p where id_producto = id_producto_p;
-                    dbms_output.put_line ('El proveedor del producto con ID: ' || id_producto_p || ' se ha actualizado a: ' || proveedor_p);
                 else
                     dbms_output.put_line ('Campo no válido.');
             end case;
