@@ -10,4 +10,5 @@ BEGIN
     GROUP BY c.id_categoria, c.nombre_categoria 
     ORDER BY total_vendido DESC
     FETCH FIRST 5 ROWS ONLY;
+  CLOSE p_cursor;
 END;
