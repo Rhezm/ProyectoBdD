@@ -1,8 +1,5 @@
 create or replace procedure JRSG_Pro_Eliminar_Categoria (
     id_categoria_p in number
-    --- ver la opcion de eliminar un cliente mediante la opcion de que campo usar, ya sea 
-    --- ID, email o telefono, en caso de que la persona que quiera eliminar le cliente no se acuerde
-    --- del ID pero si del telefono o email, etc.
 ) is
     contador number;
     begin
@@ -23,5 +20,3 @@ create or replace procedure JRSG_Pro_Eliminar_Categoria (
                 raise_application_error (-20004, 'Error inesperado: '|| sqlerrm);
             rollback;
     end;
-
---- Compila correctamente en SQL Developer

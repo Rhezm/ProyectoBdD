@@ -1,4 +1,4 @@
-create or replace procedure jrsg_pro_registrar_venta (
+create or replace procedure JRSG_Ges_Pro_Registrar_Venta (
     p_id_cliente in number,       -- cliente que realiza la compra
     p_productos in sys_refcursor -- cursor con productos y cantidades
 ) as
@@ -52,3 +52,5 @@ begin
         raise_application_error(-6501, 'error de programa');
     rollback;
 end;
+
+--- Ver si se elimina o no el archivo

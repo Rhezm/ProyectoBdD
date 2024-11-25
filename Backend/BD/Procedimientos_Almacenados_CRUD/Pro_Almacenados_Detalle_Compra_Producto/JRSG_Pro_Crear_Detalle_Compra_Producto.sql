@@ -1,4 +1,4 @@
-create or replace PROCEDURE JRSG_PRO_CREAR_DETALLE_COMPRA(
+create or replace PROCEDURE JRSG_Pro_Crear_Detalle_Compra_Producto (
     id_producto_p in number,
     cantidad_c in number,
     precio_compra_p in number

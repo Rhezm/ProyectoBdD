@@ -30,5 +30,3 @@ create or replace procedure JRSG_Pro_Crear_Cliente (
                 raise_application_error (-20004, 'Se ha producido un error inesperado.'|| sqlerrm);
         rollback;    
     end;
-
---- Compila correctamente en SQL Developer

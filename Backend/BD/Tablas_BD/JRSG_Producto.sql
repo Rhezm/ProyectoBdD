@@ -1,4 +1,4 @@
-create table JRSG_Producto ( --- Se actualizo
+create table JRSG_Producto (
     id_producto number,
     id_categoria number,
     id_promocion number,
@@ -7,7 +7,6 @@ create table JRSG_Producto ( --- Se actualizo
     precio number,
     precio_descuento number,
     stock number,
-    proveedor varchar2(50),
 
     constraint PK_JRSG_Producto primary key (id_producto),
     constraint FK_JRSG_Categoria foreign key (id_categoria) references JRSG_Categoria (id_categoria),

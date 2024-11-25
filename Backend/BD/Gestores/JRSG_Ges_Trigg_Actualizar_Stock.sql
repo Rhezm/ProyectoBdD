@@ -1,4 +1,4 @@
-CREATE OR REPLACE TRIGGER JRSG_trig_actualizar_stock
+CREATE OR REPLACE TRIGGER JRSG_Ges_Trigg_Actualizar_Stock
 AFTER INSERT ON JRSG_Detalle_Venta_Producto
 FOR EACH ROW
 DECLARE

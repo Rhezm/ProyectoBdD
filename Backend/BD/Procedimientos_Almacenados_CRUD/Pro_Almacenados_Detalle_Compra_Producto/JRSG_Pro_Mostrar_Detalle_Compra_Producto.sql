@@ -1,4 +1,4 @@
-CREATE OR REPLACE PROCEDURE JRSG_PRO_MOSTRAR_DETALLE_COMPRA(
+CREATE OR REPLACE PROCEDURE JRSG_Pro_Mostrar_Detalle_Compra_Producto (
     id_compra_c number
 )IS
     v_id_compra number;

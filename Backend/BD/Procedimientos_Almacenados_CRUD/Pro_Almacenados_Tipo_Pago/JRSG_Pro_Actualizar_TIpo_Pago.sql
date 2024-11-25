@@ -1,4 +1,4 @@
-create or replace NONEDITIONABLE PROCEDURE JRSG_PRO_ACTUALIZAR_TIPO_PAGO(
+create or replace NONEDITIONABLE PROCEDURE JRSG_Pro_Actualizar_Tipo_Pago (
     id_tipo_pago_tp number,
     nombre_metodo_pago_tp varchar2,
     banco_tp varchar2,

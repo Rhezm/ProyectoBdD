@@ -1,4 +1,4 @@
-CREATE OR REPLACE PROCEDURE JRSG_PRO_CREAR_TIPO_PAGO(
+CREATE OR REPLACE PROCEDURE JRSG_Pro_Crear_Tipo_Pago (
     nombre_metodo_pago_tp varchar2,
     banco_tp varchar2,
     num_cuenta_tp number

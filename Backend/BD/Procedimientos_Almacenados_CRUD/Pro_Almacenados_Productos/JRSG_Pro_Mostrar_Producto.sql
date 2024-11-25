@@ -14,7 +14,7 @@ create or replace NONEDITIONABLE procedure JRSG_Pro_Mostrar_Producto (
         select count(id_producto) into contador from JRSG_Producto;
 
         if (contador > 0) then
-            select * into v_id_producto, v_id_categoria, v_id_promocion, v_nombre_producto, v_descripcion_producto, v_precio, v_precio_descuento, v_stock
+            select id_producto, id_categoria, id_promocion, nombre_producto, descripcion_producto, precio, precio_descuento, stock into v_id_producto, v_id_categoria, v_id_promocion, v_nombre_producto, v_descripcion_producto, v_precio, v_precio_descuento, v_stock
             from JRSG_Producto where id_producto = id_producto_p;
 
             dbms_output.put_line('Informacion Producto ID: ' || id_producto_p || CHR(10) ||

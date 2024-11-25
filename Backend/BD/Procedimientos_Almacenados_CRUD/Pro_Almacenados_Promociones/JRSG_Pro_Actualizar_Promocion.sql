@@ -14,13 +14,13 @@ create or replace procedure JRSG_Pro_Actualizar_Promocion(
             lock table JRSG_Producto in row exclusive mode;
 
             case campo_actualizar
-                when 2 then  -- Campo Nombre Cliente
+                when 2 then  
                     update JRSG_Promocion set nombre_promocion = nombre_promocion_p where id_promocion = id_promocion_p;
                     dbms_output.put_line ('El nombre de la promocion con ID: ' || id_promocion_p || ' se ha actualizado a: ' || nombre_promocion_p);
-                when 3 then  -- Campo Apellido1 Cliente
+                when 3 then 
                     update JRSG_Promocion set descuento = descuento_p where id_promocion = id_promocion_p;
                     dbms_output.put_line ('El descuento de la promocion con ID: ' || id_promocion_p || ' se ha actualizado a: ' || descuento_p);
-                when 4 then  -- Campo Apellido2 Cliente
+                when 4 then  
                     update JRSG_Promocion set fecha_inicio = fecha_inicio_p where id_promocion = id_promocion_p;
                     dbms_output.put_line ('Fecha de inicio de la promocion con ID: ' || id_promocion_p || ' se ha actualizado a: ' || fecha_inicio_p);
                 when 5 then
@@ -37,7 +37,5 @@ create or replace procedure JRSG_Pro_Actualizar_Promocion(
         exception
             when others then
                 raise_application_error(-20003, 'Error inesperado: ' || sqlerrm);
-            rollback;  -- Revertir cambios en caso de error
+            rollback;  
     end;
-
-    --- Se actulizo, se agrego el case 7 por la nueva columna stock en la tabla producto.

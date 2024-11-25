@@ -49,5 +49,3 @@ create or replace procedure JRSG_Pro_Actualizar_Cliente (
                 raise_application_error(-20003, 'Error inesperado: ' || sqlerrm);
             rollback;  -- Revertir cambios en caso de error
     end;
-
---- Compila correctamente en SQL Developer

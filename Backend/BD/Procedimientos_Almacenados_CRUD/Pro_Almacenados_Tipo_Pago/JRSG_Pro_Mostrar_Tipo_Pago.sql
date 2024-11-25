@@ -1,4 +1,4 @@
-CREATE OR REPLACE PROCEDURE JRSG_PRO_MOSTRAR_TIPO_PAGO(
+CREATE OR REPLACE PROCEDURE JRSG_Pro_Mostrar_Tipo_Pago (
     id_tipo_pago_tp number
 )IS
     contador number;
@@ -12,7 +12,7 @@ begin
     if (contador > 0) then
         lock table JRSG_TIPO_PAGO in row exclusive mode;
         
-        SELECT * INTO v_id_tipo_pago, v_nombre_metodo_pago, v_banco, v_num_cuenta
+        SELECT id_tipo_pago, nombre_metodo_pago, banco, num_cuenta INTO v_id_tipo_pago, v_nombre_metodo_pago, v_banco, v_num_cuenta
         FROM JRSG_TIPO_PAGO
         WHERE ID_TIPO_PAGO = ID_TIPO_PAGO_TP;
             dbms_output.put_line('Informacion Tipo Pago ID: ' || v_id_tipo_pago || CHR(10) ||

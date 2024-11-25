@@ -1,15 +1,5 @@
 /* Tablas solo con PK*/
 
-create table JRSG_Promocion (
-    id_promocion number,
-    nombre_promocion varchar2(25),
-    descuento number,
-    fecha_inicio date,
-    fecha_fin date,
-
-    constraint PK_JRSG_Promocion primary key (id_promocion)
-);
-
 create table JRSG_Tipo_Pago (
     id_tipo_pago number,
     nombre_metodo_pago varchar2(25),
@@ -18,7 +8,6 @@ create table JRSG_Tipo_Pago (
 
     constraint PK_JRSG_Tipo_Pago primary key (id_tipo_pago)
 ); 
-
 
 create table JRSG_Cliente (
     id_cliente number,
@@ -30,6 +19,26 @@ create table JRSG_Cliente (
     email_cliente varchar2(50),
 
     constraint PK_JRSG_Cliente primary key (id_cliente)
+);
+
+create table JRSG_Empleado ( 
+    id_empleado number,
+    nombre_empleado varchar2(20),
+    apellido1_empleado varchar2(20),
+    apellido2_empleado varchar2(20),
+    telefono_empleado number,
+    email_empleado varchar2(50),
+    contrasena varchar2(18),
+
+    constraint PK_JRSG_Empleado primary key (id_empleado)
+); 
+
+create table JRSG_Compra ( 
+    id_compra number,
+    monto_compra number,
+    fecha_compra date,
+
+    constraint PK_JRSG_Compra primary key (id_compra)
 ); 
 
 create table JRSG_Categoria (
@@ -39,38 +48,17 @@ create table JRSG_Categoria (
     constraint PK_JRSG_Categoria primary key (id_categoria)
 ); 
 
-create table JRSG_Cargo ( --- Nueva Tabla.
-    id_cargo number,
-    nombre_cargo varchar2(20),
-    salario number,
+create table JRSG_Promocion (
+    id_promocion number,
+    nombre_promocion varchar2(25),
+    descuento number,
+    fecha_inicio date,
+    fecha_fin date,
 
-    constraint PK_JRSG_Cargo primary key (id_cargo)
+    constraint PK_JRSG_Promocion primary key (id_promocion)
 );
 
-create table JRSG_Compra ( 
-    id_compra number,
-    monto_compra number,
-    fecha_compra date,
-
-    constraint PK_JRSG_Compra primary key (id_compra)
-);  
-
 /* Tablas solo con una PK y una FK */
-
-create table JRSG_Empleado ( --- Se actualizo
-    id_empleado number,
-    id_cargo number,
-    nombre_empleado varchar2(20),
-    apellido1_empleado varchar2(20),
-    apellido2_empleado varchar2(20),
-    telefono_empleado number,
-    email_empleado varchar2(50),
-    contraseña varchar2(18),
-
-    constraint PK_JRSG_Empleado primary key (id_empleado),
-    constraint FK_JRSG_Cargo foreign key (id_cargo) references JRSG_Cargo (id_cargo)
-); 
-
 
 create table JRSG_Venta (
     id_venta number,
@@ -94,7 +82,7 @@ create table JRSG_Pago (
     constraint FK_JRSG_Tipo_Pago foreign key (id_tipo_pago) references JRSG_Tipo_Pago (id_tipo_pago)
 ); 
 
-create table JRSG_Producto ( --- Se actualizo
+create table JRSG_Producto (
     id_producto number,
     id_categoria number,
     id_promocion number,
@@ -109,44 +97,8 @@ create table JRSG_Producto ( --- Se actualizo
     constraint FK_JRSG_Promocion foreign key (id_promocion) references JRSG_Promocion (id_promocion)
 ); 
 
-create table JRSG_Ubicacion_Bodega (
-    id_ubicacion number,
-    id_producto number,
-    nro_estante number,
-    nivel number,
-
-    constraint PK_JRSG_Ubicacion_Bodega primary key (id_ubicacion),
-    constraint FK_JRSG_Producto2 foreign key (id_producto) references JRSG_Producto (id_producto)
-); 
-/* Tablas dos PK y dos FK */
-
-create table JRSG_Detalle_Compra_Producto (
-    id_compra number,
-    id_producto number,
-    cantidad number,
-    nombre_producto varchar2(60),
-    precio_compra number,
-    precio_total number,
-
-    constraint PK_JRSG_Detalle_Compra_Producto primary key (id_compra, id_producto),
-    constraint FK_JRSG_Compra foreign key (id_compra) references JRSG_Compra (id_compra),
-    constraint FK_JRSG_Producto foreign key (id_producto) references JRSG_Producto (id_producto)
-);
-
-create table JRSG_Detalle_Venta_Producto ( --- Se actualizo
-    id_venta number,
-    id_producto number,
-    cantidad number,
-    nombre_producto varchar2(60),
-
-    constraint PK_JRSG_Detalle_Venta_Producto primary key (id_producto, id_venta),
-    constraint FK_JRSG_Venta2 foreign key (id_venta) references JRSG_Venta (id_venta),
-    constraint FK_JRSG_Producto1 foreign key (id_producto) references JRSG_Producto (id_producto)
-); 
-
-
 /* Una PK y Cuatro FK */
-create table JRSG_Boleta ( --- Se actualizo
+create table JRSG_Boleta (
     id_boleta number,
     id_cliente number,
     id_venta number,
@@ -162,3 +114,31 @@ create table JRSG_Boleta ( --- Se actualizo
     constraint FK_JRSG_Pago foreign key (id_pago) references JRSG_Pago (id_pago),
     constraint FK_JRSG_Empleado foreign key (id_empleado) references JRSG_Empleado (id_empleado)
 ); 
+
+/* Tablas dos PK y dos FK */
+
+create table JRSG_Detalle_Venta_Producto (
+    id_venta number,
+    id_producto number,
+    cantidad number,
+    nombre_producto varchar2(60),
+
+    constraint PK_JRSG_Detalle_Venta_Producto primary key (id_producto, id_venta),
+    constraint FK_JRSG_Venta2 foreign key (id_venta) references JRSG_Venta (id_venta),
+    constraint FK_JRSG_Producto1 foreign key (id_producto) references JRSG_Producto (id_producto)
+);
+
+create table JRSG_Detalle_Compra_Producto (
+    id_compra number,
+    id_producto number,
+    cantidad number,
+    nombre_producto varchar2(60),
+    precio_compra number,
+    precio_total number,
+
+    constraint PK_JRSG_Detalle_Compra_Producto primary key (id_compra, id_producto),
+    constraint FK_JRSG_Compra foreign key (id_compra) references JRSG_Compra (id_compra),
+    constraint FK_JRSG_Producto foreign key (id_producto) references JRSG_Producto (id_producto)
+);
+
+--- Compila Correctamente en SQL Oracle: Comprobaciòn 25 nov 2024 - 11:17 am

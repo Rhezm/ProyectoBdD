@@ -1,4 +1,4 @@
-CREATE OR REPLACE PROCEDURE JRSG_CREAR_PAGO(
+CREATE OR REPLACE PROCEDURE JRSG_Pro_Crear_Pago (
     id_venta_P number,
     id_tipo_pago_P number,
     fecha_pago_p date,

@@ -1,4 +1,4 @@
-create procedure jsrg_pro_genera_pago
+create procedure JRSG_Ges_Pro_Genera_Pago
     @id_venta int,
     @id_tipo_pago int,
     @fecha_pago date
@@ -53,3 +53,6 @@ begin
     end catch
 end;
 go
+
+
+--- Ver si se elimina o no el archivo: da error al compilar

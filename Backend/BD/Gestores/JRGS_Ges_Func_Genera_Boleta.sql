@@ -1,4 +1,4 @@
-create or replace function jrsg_func_genera_boleta (
+create or replace function JRSG_Ges_Func_Genera_Boleta (
     p_id_venta in number   -- id de la venta para generar la boleta
 ) return number   -- retorna el id de la boleta generada
 as
@@ -35,7 +35,7 @@ begin
     where p.id_pago = v_id_pago;
 
     -- generar un nuevo id para la boleta
-    select genera_id_boleta.nextval into v_id_boleta 
+    select JRSG_Sec_Generar_ID_Boletas.nextval into v_id_boleta 
     from dual;
 
     -- insertar la boleta con valores adicionales
@@ -55,3 +55,5 @@ exception
         raise_application_error(-6501, 'error de programa');
     rollback;
 end;
+
+--- Ver si se elimina o no el archivo

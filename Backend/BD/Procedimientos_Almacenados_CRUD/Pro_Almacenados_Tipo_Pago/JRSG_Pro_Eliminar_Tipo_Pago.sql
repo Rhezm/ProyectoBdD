@@ -1,4 +1,4 @@
-create or replace NONEDITIONABLE PROCEDURE JRSG_PRO_ELIMINAR_TIPO_PAGO(
+create or replace NONEDITIONABLE PROCEDURE JRSG_Pro_Eliminar_Tipo_Pago (
     id_tipo_pago_tp number
 )IS
 contador number;
