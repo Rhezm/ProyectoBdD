@@ -90,12 +90,17 @@ function guardarProducto($conn) {
     oci_bind_by_name($stid, ':precio_descuento', $precio_descuento);
     oci_bind_by_name($stid, ':stock', $stock);
 
-    if (oci_execute($stid)) {
-        echo "Producto guardado exitosamente.";
+    @oci_execute($stid);
+    if ($error = oci_error($stid)) {
+        if ($error['code'] == 1) {
+            echo "Error: El ID de producto ya existe. Por favor, use un ID diferente.";
+        } else {
+            echo "Error al guardar el producto: " . $error['message'];
+        }
     } else {
-        $e = oci_error($stid);
-        echo "Error al guardar el producto: " . $e['message'];
+        echo "Producto guardado exitosamente.";
     }
+
 
     oci_free_statement($stid);
 }
