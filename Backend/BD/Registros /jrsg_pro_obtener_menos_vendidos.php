@@ -9,5 +9,5 @@ BEGIN
     GROUP BY p.id_producto, p.nombre_producto
     ORDER BY total_vendido ASC
     FETCH FIRST 10 ROWS ONLY;
-  CLOSE P_CURSOR;
+  CLOSE p_cursor;
 END;
