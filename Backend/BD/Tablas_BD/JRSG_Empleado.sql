@@ -1,6 +1,5 @@
 create table JRSG_Empleado ( --- Se actualizo, se agrego id_cargo
     id_empleado number,
-    id_cargo number,
     nombre_empleado varchar2(20),
     apellido1_empleado varchar2(20),
     apellido2_empleado varchar2(20),
