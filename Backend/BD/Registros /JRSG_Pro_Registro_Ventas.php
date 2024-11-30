@@ -9,4 +9,10 @@ BEGIN
     INNER JOIN jrsg_producto p ON dvp.id_producto = p.id_producto
     GROUP BY dvp.id_venta, p.nombre_producto, dvp.cantidad, v.fecha_venta
     ORDER BY dvp.id_venta;
-END
+    exception
+        when storage_error then
+            raise_application_error (-6500, 'Error en el almacenamiento: No hay sufieciente espacio en el sistema.');
+        when others then
+            raise_application_error (-20004, 'Se ha producido un error inesperado' || sqlerrm);
+    rollback;
+END;
