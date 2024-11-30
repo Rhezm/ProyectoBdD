@@ -288,7 +288,7 @@
               return;
           }
 
-          const payload={
+          const datosV={
               id_cliente:idCliente,
               productos : datos.map(producto=> ({
                   cod_producto : producto.cod_producto,
@@ -296,14 +296,14 @@
               }))
           };
 
-          console.log(payload);
+          console.log(datosV);
 
           fetch('../../Backend/PHP/nueva_venta.php', {
               method:'POST',
               headers:{
                   'Content-Type':'application/json',
               },
-              body : JSON.stringify(payload),
+              body : JSON.stringify(datosV),
           })
           .then(response => response.json())
           .then(data => {
