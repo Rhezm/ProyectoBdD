@@ -92,7 +92,7 @@
     <script>
         document.getElementById('loginForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            const idEmpleado = document.getElementById('id_empleado').value.replace(/[\.\-]/g, ''); // Eliminar puntos y guión
+            const idEmpleado = document.getElementById('id_empleado').value; // Eliminar puntos y guión
             const password = document.getElementById('password').value;
             const idEmpleadoError = document.getElementById('idEmpleadoError');
             const passwordError = document.getElementById('passwordError');
@@ -134,8 +134,6 @@
             let idEmpleadoFormateado = "";
 
             for (let i = 0; i < valor.length; i++) {
-                if (i === 1) idEmpleadoFormateado = "-" + idEmpleadoFormateado;
-                if (i === 4 || i === 7) idEmpleadoFormateado = "." + idEmpleadoFormateado;
                 idEmpleadoFormateado = valor[i] + idEmpleadoFormateado;
             }
 
