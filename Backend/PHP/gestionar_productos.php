@@ -1,19 +1,16 @@
 <?php
-// Configuración de la base de datos
 $host = "localhost";
 $user = "C##usuario";
 $password = "123";
 $service_name = "xe";
 $connection_string = "(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=$host)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=$service_name)))";
 
-// Conexión a la base de datos
 $conn = oci_connect($user, $password, $connection_string);
 if (!$conn) {
     echo "Error de conexión: " . oci_error();
     exit;
 }
 
-// Determinar la acción a realizar
 $action = $_POST['action'];
 
 switch ($action) {
@@ -36,7 +33,6 @@ switch ($action) {
 
 oci_close($conn);
 
-// Función para obtener productos
 function obtenerProductos($conn) {
     $query = "SELECT id_producto, id_categoria, nombre_producto, descripcion_producto, precio, stock FROM JRSG_PRODUCTO";
     $stid = oci_parse($conn, $query);
@@ -64,12 +60,15 @@ function obtenerProductos($conn) {
     echo $filas;
 }
 
-// Función para guardar un producto
+function capitalizarPrimeraLetra($texto) {
+    return ucfirst(strtolower($texto));
+}
+
 function guardarProducto($conn) {
     $id_producto = $_POST['id_producto'];
     $id_categoria = $_POST['id_categoria'];
-    $nombre_producto = ucfirst(strtolower($_POST['nombre_producto']));
-    $descripcion_producto = ucfirst(strtolower($_POST['descripcion_producto']));
+    $nombre_producto = capitalizarPrimeraLetra($_POST['nombre_producto']);
+    $descripcion_producto = capitalizarPrimeraLetra($_POST['descripcion_producto']);
     $precio = $_POST['precio'];
     $stock = $_POST['stock'];
 
@@ -95,20 +94,20 @@ function guardarProducto($conn) {
         echo "Producto guardado exitosamente.";
     }
 
-
     oci_free_statement($stid);
 }
 
-// Función para actualizar un producto
 function actualizarProducto($conn) {
     $id_producto = $_POST['id_producto'];
     $id_categoria = $_POST['id_categoria'];
-    $nombre_producto = ucfirst(strtolower($_POST['nombre_producto']));
-    $descripcion_producto = ucfirst(strtolower($_POST['descripcion_producto']));
+    $nombre_producto = capitalizarPrimeraLetra($_POST['nombre_producto']);
+    $descripcion_producto = capitalizarPrimeraLetra($_POST['descripcion_producto']);
     $precio = $_POST['precio'];
     $stock = $_POST['stock'];
 
-    $query = "UPDATE JRSG_PRODUCTO SET id_categoria = :id_categoria, nombre_producto = :nombre_producto, descripcion_producto = :descripcion_producto, precio = :precio, stock = :stock WHERE id_producto = :id_producto";
+    $query = "UPDATE JRSG_PRODUCTO SET id_categoria = :id_categoria, nombre_producto = :nombre_producto,
+              descripcion_producto = :descripcion_producto, precio = :precio, stock = :stock WHERE id_producto = :id_producto";
+              
     $stid = oci_parse($conn, $query);
 
     oci_bind_by_name($stid, ':id_producto', $id_producto);
@@ -128,7 +127,6 @@ function actualizarProducto($conn) {
     oci_free_statement($stid);
 }
 
-// Función para eliminar un producto
 function eliminarProducto($conn) {
     $id_producto = $_POST['id_producto'];
 
