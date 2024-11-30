@@ -24,7 +24,9 @@ oci_execute($cursor);
 // Generar filas de la tabla
 $filas = '';
 while (($row = oci_fetch_array($cursor, OCI_ASSOC + OCI_RETURN_NULLS)) != false) {
-    $filas .= "<tr> <td class='id_producto'>{$row['A']}</td> <td class='nombre_producto'>{$row['AA']}</td> <td class='total_vendido'>{$row['TOTAL_VENDIDO']}</td> </tr>";
+    $filas .= "<tr> <td class='id_producto'>{$row['A']}</td>
+    <td class='nombre_producto'>{$row['AA']}</td>
+    <td class='total_vendido'>{$row['TOTAL_VENDIDO']}</td> </tr>";
 }
 
 oci_free_statement($stid);
