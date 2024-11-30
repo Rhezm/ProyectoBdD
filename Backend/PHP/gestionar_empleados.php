@@ -114,9 +114,9 @@ function actualizarEmpleado($conn) {
     $contrasena = $_POST['contrasena'];
 
     $query = "UPDATE jrsg_empleado 
-                SET (nombre_empleado = :nombre_empleado, apellido1_empleado = :apellido1_empleado, 
+                SET nombre_empleado = :nombre_empleado, apellido1_empleado = :apellido1_empleado, 
                         apellido2_empleado = :apellido2_empleado, telefono_empleado = :telefono_empleado, 
-                        email_empleado = :email_empleado, contrasena = :contrasena)
+                        email_empleado = :email_empleado, contrasena = :contrasena
             WHERE id_empleado = :id_empleado";
     $stid = oci_parse($conn, $query);
 
