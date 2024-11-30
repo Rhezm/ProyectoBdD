@@ -38,7 +38,7 @@ oci_close($conn);
 
 // Función para obtener productos
 function obtenerProductos($conn) {
-    $query = "SELECT id_producto, id_categoria, id_promocion, nombre_producto, descripcion_producto, precio, precio_descuento, stock FROM JRSG_PRODUCTO";
+    $query = "SELECT id_producto, id_categoria, nombre_producto, descripcion_producto, precio, stock FROM JRSG_PRODUCTO";
     $stid = oci_parse($conn, $query);
     oci_execute($stid);
 
@@ -49,11 +49,9 @@ function obtenerProductos($conn) {
         $filas .= "<tr>
                     <td class='id_producto'>{$row['ID_PRODUCTO']}</td>
                     <td class='id_categoria'>{$row['ID_CATEGORIA']}</td>
-                    <td class='id_promocion'>{$id_promocion}</td>
                     <td class='nombre_producto'>{$row['NOMBRE_PRODUCTO']}</td>
                     <td class='descripcion_producto'>{$row['DESCRIPCION_PRODUCTO']}</td>
                     <td class='precio'>{$row['PRECIO']}</td>
-                    <td class='precio_descuento'>{$precio_descuento}</td>
                     <td class='stock'>{$row['STOCK']}</td>
                     <td>
                         <span class='accion-icono editar' title='Editar'>&#9998;</span>
@@ -70,24 +68,20 @@ function obtenerProductos($conn) {
 function guardarProducto($conn) {
     $id_producto = $_POST['id_producto'];
     $id_categoria = $_POST['id_categoria'];
-    $id_promocion = !empty($_POST['id_promocion']) ? $_POST['id_promocion'] : NULL;
     $nombre_producto = ucfirst(strtolower($_POST['nombre_producto']));
     $descripcion_producto = ucfirst(strtolower($_POST['descripcion_producto']));
     $precio = $_POST['precio'];
-    $precio_descuento = !empty($_POST['precio_descuento']) ? $_POST['precio_descuento'] : NULL;
     $stock = $_POST['stock'];
 
-    $query = "INSERT INTO JRSG_PRODUCTO (id_producto, id_categoria, id_promocion, nombre_producto, descripcion_producto, precio, precio_descuento, stock)
-              VALUES (:id_producto, :id_categoria, :id_promocion, :nombre_producto, :descripcion_producto, :precio, :precio_descuento, :stock)";
+    $query = "INSERT INTO JRSG_PRODUCTO (id_producto, id_categoria, nombre_producto, descripcion_producto, precio, stock)
+              VALUES (:id_producto, :id_categoria, :nombre_producto, :descripcion_producto, :precio, :stock)";
     $stid = oci_parse($conn, $query);
 
     oci_bind_by_name($stid, ':id_producto', $id_producto);
     oci_bind_by_name($stid, ':id_categoria', $id_categoria);
-    oci_bind_by_name($stid, ':id_promocion', $id_promocion);
     oci_bind_by_name($stid, ':nombre_producto', $nombre_producto);
     oci_bind_by_name($stid, ':descripcion_producto', $descripcion_producto);
     oci_bind_by_name($stid, ':precio', $precio);
-    oci_bind_by_name($stid, ':precio_descuento', $precio_descuento);
     oci_bind_by_name($stid, ':stock', $stock);
 
     @oci_execute($stid);
@@ -109,23 +103,19 @@ function guardarProducto($conn) {
 function actualizarProducto($conn) {
     $id_producto = $_POST['id_producto'];
     $id_categoria = $_POST['id_categoria'];
-    $id_promocion = !empty($_POST['id_promocion']) ? $_POST['id_promocion'] : NULL;
     $nombre_producto = ucfirst(strtolower($_POST['nombre_producto']));
     $descripcion_producto = ucfirst(strtolower($_POST['descripcion_producto']));
     $precio = $_POST['precio'];
-    $precio_descuento = !empty($_POST['precio_descuento']) ? $_POST['precio_descuento'] : NULL;
     $stock = $_POST['stock'];
 
-    $query = "UPDATE JRSG_PRODUCTO SET id_categoria = :id_categoria, id_promocion = :id_promocion, nombre_producto = :nombre_producto, descripcion_producto = :descripcion_producto, precio = :precio, precio_descuento = :precio_descuento, stock = :stock WHERE id_producto = :id_producto";
+    $query = "UPDATE JRSG_PRODUCTO SET id_categoria = :id_categoria, nombre_producto = :nombre_producto, descripcion_producto = :descripcion_producto, precio = :precio, stock = :stock WHERE id_producto = :id_producto";
     $stid = oci_parse($conn, $query);
 
     oci_bind_by_name($stid, ':id_producto', $id_producto);
     oci_bind_by_name($stid, ':id_categoria', $id_categoria);
-    oci_bind_by_name($stid, ':id_promocion', $id_promocion);
     oci_bind_by_name($stid, ':nombre_producto', $nombre_producto);
     oci_bind_by_name($stid, ':descripcion_producto', $descripcion_producto);
     oci_bind_by_name($stid, ':precio', $precio);
-    oci_bind_by_name($stid, ':precio_descuento', $precio_descuento);
     oci_bind_by_name($stid, ':stock', $stock);
 
     if (oci_execute($stid)) {
