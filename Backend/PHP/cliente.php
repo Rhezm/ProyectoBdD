@@ -5,14 +5,12 @@ if (!isset($_SESSION['usuario_id'])) {
     exit();
 }
 
-// Establecer los parámetros de la conexión a Oracle
 $usuario = 'C##usuario';
 $clave = '123';
 $host = 'localhost';
 $puerto = '1521';
 $servicio = 'XE';
 
-// Conexión a la base de datos Oracle
 $conn = oci_connect($usuario, $clave, "//{$host}:{$puerto}/{$servicio}");
 
 if (!$conn) {
@@ -27,7 +25,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $telefono = $_POST['telefono'];
     $email = $_POST['email'];
 
-    // Insertar nuevo cliente en la base de datos
     $query = 'INSERT INTO jrsg_clientes (nombre_cliente, apellido1_cliente, apellido2_cliente, telefono_cliente, email_cliente)
                     VALUES (:nombre, :apellido1, :apellido2, :telefono, :email)';
     $stid = oci_parse($conn, $query);
@@ -48,7 +45,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     oci_free_statement($stid);
 }
 
-// Obtener todos los clientes para mostrarlos en la tabla
 $query = 'SELECT * FROM jrsg_clientes';
 $stid = oci_parse($conn, $query);
 oci_execute($stid);
