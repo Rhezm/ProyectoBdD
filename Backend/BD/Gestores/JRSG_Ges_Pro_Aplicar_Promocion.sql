@@ -3,7 +3,6 @@ is
     v_descuento number;
     v_precio number;
     v_precio_descuento number;
-    v_campo_actu number := 7;
 
     begin
         for p in (select id_producto, id_promocion, precio from JRSG_Producto where id_promocion is not null)
@@ -14,7 +13,7 @@ is
           v_precio := p.precio;
           v_precio_descuento := v_precio - (v_precio * (v_descuento / 100));
 
-          JRSG_Pro_Actualizar_Producto (p.id_producto, null, null, null, null, null, v_precio_descuento, null, v_campo_actu);
+          JRSG_Pro_Actualizar_Producto (p.id_producto, null, null, null, null, null, v_precio_descuento, null);
         end loop
         commit;
     end;

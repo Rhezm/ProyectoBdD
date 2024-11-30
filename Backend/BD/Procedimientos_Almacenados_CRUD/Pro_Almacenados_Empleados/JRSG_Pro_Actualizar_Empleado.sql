@@ -5,8 +5,7 @@ create or replace procedure JRSG_Pro_Actualizar_Empleado (
     apellido2_empleado_p in varchar2 default null,
     telefono_empleado_p in number default null,
     email_empleado_p in varchar2 default null,
-    contrasena_p in varchar2 default null,
-    campo_actualizar number  -- variable que nos indica qué campo se modificará
+    contrasena_p in varchar2 default null
 ) is
     contador number;
     begin
@@ -15,30 +14,15 @@ create or replace procedure JRSG_Pro_Actualizar_Empleado (
 
         if (contador > 0) then  -- Caso en el que existe (correcto).
             lock table JRSG_Empleado in row exclusive mode;
-
-            case campo_actualizar
-                when 2 then  -- Campo Nombre Cliente
-                    update JRSG_Empleado set nombre_empleado = nombre_empleado_p where id_empleado = id_empleado_p;
-                    dbms_output.put_line ('El nombre del empleado con ID: ' || id_empleado_p || ' se ha actualizado a: ' || nombre_empleado_p);
-                when 3 then  -- Campo Apellido1 Cliente
-                    update JRSG_Empleado set apellido1_empleado = apellido1_empleado_p where id_empleado = id_empleado_p;
-                    dbms_output.put_line ('El primer apellido del empleado con ID: ' || id_empleado_p || ' se ha actualizado a: ' || apellido1_empleado_p);
-                when 4 then  -- Campo Apellido2 Cliente
-                    update JRSG_Empleado set apellido2_empleado = apellido2_empleado_p where id_empleado = id_empleado_p;
-                    dbms_output.put_line ('El segundo apellido del empleado con ID: ' || id_empleado_p || ' se ha actualizado a: ' || apellido2_empleado_p);
-                when 5 then  -- Campo Telefono Cliente
-                    update JRSG_Empleado set telefono_empleado = telefono_empleado_p where id_empleado = id_empleado_p;
-                    dbms_output.put_line ('El telefono del empleado con ID: ' || id_empleado_p || ' se ha actualizado a: ' || telefono_empleado_p);
-                when 6 then  -- Campo Email Cliente
-                    update JRSG_Empleado set email_empleado = email_empleado_p where id_empleado = id_empleado_p;
-                    dbms_output.put_line ('El email del empleado con ID: ' || id_empleado_p || ' se ha actualizado a: ' || email_empleado_p);
-                when 7 then  -- Campo Contrasena Cliente
-                    update JRSG_Empleado set contrasena = contrasena_p where id_empleado = id_empleado_P;
-                    dbms_output.put_line ('La contrasena del empleado con ID: ' || id_empleado_p || ' se ha actualizado.');
-                else
-                    dbms_output.put_line ('Campo no válido.');
-            end case;
-            commit;  -- Confirmar cambios
+            
+            update JRSG_Empleado set nombre_empleado = nombre_empleado_p,
+                                    apellido1_empleado = apellido1_empleado_p,
+                                    apellido2_empleado = apellido2_empleado_p,
+                                    telefono_empleado = telefono_empleado_p,
+                                    email_empleado = email_empleado_p,
+                                    contrasena = contrasena_p where id_empleado = id_empleado_p;
+            dbms_output.put_line ('Los datos del empleado con ID: ' || id_empleado_p || ' se han actualizado');
+            commit; 
 
         else
             dbms_output.put_line ('Empleado con ID: ' || id_empleado_p || ' no encontrado en el sistema.');

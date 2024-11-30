@@ -3,8 +3,7 @@ create or replace procedure JRSG_Pro_Actualizar_Promocion(
     nombre_promocion_p in varchar2 default null,
     descuento_p in number default null,
     fecha_inicio_p in date default null,
-    fecha_fin_p in date default null,
-    campo_actualizar in number
+    fecha_fin_p in date default null
 )is
     contador number;
     begin
@@ -13,22 +12,11 @@ create or replace procedure JRSG_Pro_Actualizar_Promocion(
         if (contador > 0) then
             lock table JRSG_Producto in row exclusive mode;
 
-            case campo_actualizar
-                when 2 then  
-                    update JRSG_Promocion set nombre_promocion = nombre_promocion_p where id_promocion = id_promocion_p;
-                    dbms_output.put_line ('El nombre de la promocion con ID: ' || id_promocion_p || ' se ha actualizado a: ' || nombre_promocion_p);
-                when 3 then 
-                    update JRSG_Promocion set descuento = descuento_p where id_promocion = id_promocion_p;
-                    dbms_output.put_line ('El descuento de la promocion con ID: ' || id_promocion_p || ' se ha actualizado a: ' || descuento_p);
-                when 4 then  
-                    update JRSG_Promocion set fecha_inicio = fecha_inicio_p where id_promocion = id_promocion_p;
-                    dbms_output.put_line ('Fecha de inicio de la promocion con ID: ' || id_promocion_p || ' se ha actualizado a: ' || fecha_inicio_p);
-                when 5 then
-                    update JRSG_Promocion set fecha_fin = fecha_fin_p where id_promocion = id_promocion_p;
-                    dbms_output.put_line ('Fecha de fin de la promocion con ID: ' || id_promocion_p || ' se ha actualizado a: ' || fecha_fin_p);
-                else
-                    dbms_output.put_line ('Campo no válido.');
-            end case;
+            update JRSG_Promocion set nombre_promocion = nombre_promocion_p,
+                                    descuento = descuento_p,
+                                    fecha_inicio = fecha_inicio_p,
+                                    fecha_fin = fecha_fin_p where id_promocion = id_promocion_p;
+            dbms_output.put_line ('Los datos de la promocion con ID: ' || id_promocion_p || ' se han actualizado');
             commit;
         else
             dbms_output.put_line ('Promocion con ID: ' || id_promocion_p || ' no encontrado en el sistema.');
