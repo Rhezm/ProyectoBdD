@@ -110,9 +110,9 @@ function actualizarCliente($conn) {
     $email_cliente = $_POST['email_cliente'];
 
     $query = "UPDATE jrsg_cliente 
-                SET (nombre_cliente = :nombre_cliente, apellido1_cliente = :apellido1_cliente, 
+                SET nombre_cliente = :nombre_cliente, apellido1_cliente = :apellido1_cliente, 
                         apellido2_cliente = :apellido2_cliente, telefono_cliente = :telefono_cliente, 
-                        email_cliente = :email_cliente)
+                        email_cliente = :email_cliente
             WHERE id_cliente = :id_cliente";
     $stid = oci_parse($conn, $query);
 
