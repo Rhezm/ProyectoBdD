@@ -169,26 +169,46 @@
            document.getElementById('agregarBtn').disabled=true;
        }
 
-       function editarCantidad(button) {
-           const fila= button.closest('tr');
-           const cantidadSpan= fila.querySelector('.cantidad');
-           const valor= cantidadSpan.textContent;
-           cantidadSpan.innerHTML= `<input type='number' value='${valor}' 
-             	style='width=50px;box-sizing:border-box;'>`;
-           button.innerHTML= "💾";
-           button.onclick= function () {
-              	const input= cantidadSpan.querySelector('input');
-              	if(input) cantidadSpan.textContent= input.value;
-              	button.innerHTML= "✏️";
-              	button.onclick= () => editarCantidad(button);
-          	};
-       }
+        function editarCantidad(button) {
+            const fila = button.closest('tr');
+            const cantidadSpan = fila.querySelector('.cantidad');
+            const valorActual = parseFloat(cantidadSpan.textContent);
+            
+            // Crear un input para editar
+            cantidadSpan.innerHTML = `<input type='number' value='${valorActual}' style='width:50px;box-sizing:border-box;'>`;
+            
+            // Cambiar el botón para guardar
+            button.innerHTML = "💾";
+            
+            button.onclick = function () {
+                const input = cantidadSpan.querySelector('input');
+                if (input) {
+                    const nuevaCantidad = parseFloat(input.value);
+                    cantidadSpan.textContent = nuevaCantidad; // Actualiza la cantidad en la tabla
 
-       function eliminarProducto(button) {
-          	const fila= button.closest('tr');
-          	fila.remove();
-          	actualizarTotales();
-       }
+                    // Actualiza el objeto en el array 'datos'
+                    const index = Array.from(fila.parentNode.children).indexOf(fila);
+                    datos[index].cantidad = nuevaCantidad; // Actualiza el array 'datos'
+
+                    actualizarTotales(); // Actualiza los totales
+                }
+                button.innerHTML = "✏️";
+                button.onclick = () => editarCantidad(button);
+            };
+        }
+
+        function eliminarProducto(button) {
+            const fila = button.closest('tr');
+                
+            // Obtener el índice del producto a eliminar
+            const index = Array.from(fila.parentNode.children).indexOf(fila);
+                
+            // Eliminar el producto del array 'datos'
+            datos.splice(index, 1);
+                
+            fila.remove(); // Eliminar la fila de la tabla
+            actualizarTotales(); // Actualizar los totales
+        }
 
        function verificarCampos() {
           	const cod_producto= document.getElementById('cod_producto').value;
@@ -203,18 +223,18 @@
        }
 
        function actualizarTotales() {
-          	totalProducto=0;
-          	datos.forEach(producto => {
-              	totalProducto += producto.cantidad * producto.precio;
-          	});
-
-          	totalNeto= totalProducto /1.19
-          	totalIVA= totalProducto - totalNeto
-
-          	document.getElementById('totalNeto').textContent= totalNeto.toFixed(2);
-          	document.getElementById('totalIVA').textContent= totalIVA.toFixed(2);
-          	document.getElementById('totalProducto').textContent= totalProducto.toFixed(2);
-       }
+            totalProducto = 0;
+            datos.forEach(producto => {
+                totalProducto += producto.cantidad * producto.precio;
+            });
+        
+            totalNeto = totalProducto / 1.19;
+            totalIVA = totalProducto - totalNeto;
+        
+            document.getElementById('totalNeto').textContent = totalNeto.toFixed(2);
+            document.getElementById('totalIVA').textContent = totalIVA.toFixed(2);
+            document.getElementById('totalProducto').textContent = totalProducto.toFixed(2);
+        }
 
        document.addEventListener('input', (event) => {
           const target= event.target;
