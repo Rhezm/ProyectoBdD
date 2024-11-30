@@ -35,7 +35,7 @@ if (is_null($datos)) {
 }
 
 // Crear un nuevo documento PDF
-$pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, array(170, 250), true, 'UTF-8', false);
+$pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, array(170, 200), true, 'UTF-8', false);
 
 // Establecer la información del documento
 $pdf->SetCreator(PDF_CREATOR);
