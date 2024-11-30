@@ -1,8 +1,41 @@
 <?php
+date_default_timezone_set('America/Santiago');
+session_start();
 require_once('../../tcpdf/tcpdf.php');
 
+// Configuración de la base de datos
+$usuario = 'C##usuario';
+$clave = '123';
+$host = 'localhost';
+$puerto = '1521';
+$servicio = 'XE';
+$conn = oci_connect($usuario, $clave, "//{$host}:{$puerto}/{$servicio}");
+if (!$conn) {
+    $error = oci_error();
+    echo "Error de conexión: " . $error['message'];
+    exit;
+}
+
+// Obtener el siguiente valor de la secuencia para el ID de la boleta
+$query_id_boleta = "SELECT jrsg_sec_genera_id_boleta.NEXTVAL AS id_boleta FROM dual";
+$stmt = oci_parse($conn, $query_id_boleta);
+oci_execute($stmt);
+$row = oci_fetch_assoc($stmt);
+$id_boleta = $row['ID_BOLETA'];
+
+
+// Obtener los datos enviados desde JavaScript
+$json = file_get_contents('php://input');
+$datos = json_decode($json, true);
+
+// Verificar si los datos se han recibido correctamente
+if (is_null($datos)) {
+    error_log("Contenido recibido: " . $json);
+    die('Error: No se recibieron datos o los datos no son válidos.');
+}
+
 // Crear un nuevo documento PDF
-$pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, array(170,250), true, 'UTF-8', false);
+$pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, array(170, 250), true, 'UTF-8', false);
 
 // Establecer la información del documento
 $pdf->SetCreator(PDF_CREATOR);
@@ -29,56 +62,35 @@ $pdf->Cell(0, 5, 'Giro: Cordoneria - Lanas - Hilos y Bordados', 0, 1);
 $pdf->Cell(0, 5, '8 Oriente 1068, Talca, Talca', 0, 1);
 
 // Detalles de la boleta
-$id_boleta = 12345;
 $fecha_actual = date('Y-m-d H:i:s');
-$vendedor = 'Nombre del Vendedor';
-$metodo_pago = 'Tarjeta de Crédito';
+$vendedor = isset($_SESSION['id_empleado']) ? $_SESSION['id_empleado'] : 'No asignado';
+$metodo_pago = isset($datos['metodoPago']) ? $datos['metodoPago'] : 'No especificado'; // Cambia aquí para asegurarte de que el método de pago se extraiga correctamente
 
-$pdf->Cell(0, 5, "Boleta Electronica: $id_boleta", 0, 1);
+$pdf->Cell(0, 5, "Boleta Electrónica: $id_boleta", 0, 1);
 $pdf->Cell(0, 5, "Fecha: $fecha_actual", 0, 1);
 $pdf->Cell(0, 5, "Vendedor: $vendedor", 0, 1);
-$pdf->Cell(0, 5, "Metodo de Pago: $metodo_pago", 0, 1);
+$pdf->Cell(0, 5, "Método de Pago: $metodo_pago", 0, 1); // Ahora se debe mostrar correctamente
 $pdf->Ln(5);
-// Línea
+
+// Línea divisoria
 $pdf->Line(10, $pdf->GetY(), 160, $pdf->GetY());
-$pdf->Ln(5); // Salto de línea
-
-// Conexión a la base de datos
-$host = "localhost";
-$user = "C##usuario";
-$password = "123";
-$service_name = "xe"; // Alias definido en tnsnames.ora
-$connection_string = "(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=$host)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=$service_name)))";
-
-$conn = oci_connect($user, $password, $connection_string);
-if (!$conn) {
-    die("Error de conexión: " . oci_error());
-}
-
-// Consulta para obtener los productos con id_producto 1 y 2
-$query = 'SELECT cantidad, nombre_producto, precio FROM JRSG_PRODUCTO p inner join jrsg_detalle_venta_producto dvp on dvp.id_producto = p.id_producto WHERE dvp.id_venta = 1';
-$stid = oci_parse($conn, $query);
-oci_execute($stid);
-
-$productos = [];
-$total = 0;
-while ($row = oci_fetch_assoc($stid)) {
-    $productos[] = $row;
-}
+$pdf->Ln(5);
 
 // Añadir los productos al PDF
-$pdf->Cell(0, 5, 'Cantidad     Producto                         Precio   Total', 0, 1);
-foreach ($productos as $producto) {
-    $cantidad = $producto['CANTIDAD'];
-    $nombre_producto = $producto['NOMBRE_PRODUCTO'];
-    $precio = number_format($producto['PRECIO'], 0);
-    $subtotal_p = number_format($cantidad * $producto['PRECIO'], 0);
-    $total += $cantidad * $producto['PRECIO'];
-    
+$pdf->Cell(0, 5, 'Cantidad     Producto                       Precio      Total', 0, 1);
+$total = 0;
+foreach ($datos['productos'] as $producto) {
+    $cantidad = $producto['cantidad'];
+    $nombre_producto = $producto['producto'];
+    $precio = number_format($producto['precio'], 0);
+    $subtotal_p = number_format($cantidad * $producto['precio'], 0);
+    $total += $cantidad * $producto['precio'];
+
     // Calcular espacios necesarios para alinear precios
     $espacio1 = str_repeat(' ', 13 - strlen($cantidad));
     $espacio2 = str_repeat(' ', 31 - strlen($nombre_producto));
-    $pdf->Cell(0, 5, "$cantidad$espacio1$nombre_producto$espacio2  $precio    $subtotal_p", 0, 1);
+    $espacio3 = str_repeat(' ', 12 - strlen($precio));
+    $pdf->Cell(0, 5, "$cantidad$espacio1$nombre_producto$espacio2$precio$espacio3$subtotal_p", 0, 1);
 }
 
 // Calcular el IVA y el Subtotal
@@ -86,18 +98,13 @@ $iva = number_format($total - ($total / 1.19), 0);
 $total_neto = number_format($total / 1.19, 0);
 
 // Totales
-$pdf->Ln(5); // Salto de línea
+$pdf->Ln(5);
 $pdf->Line(10, $pdf->GetY(), 160, $pdf->GetY());
-$pdf->Ln(5); // Salto de línea
-
+$pdf->Ln(5);
 $pdf->Cell(0, 5, "TOTAL NETO: $total_neto", 0, 1);
 $pdf->Cell(0, 5, "IVA (19%): $iva", 0, 1);
 $total_a_pagar = number_format($total, 0);
 $pdf->Cell(0, 5, "TOTAL A PAGAR: $total_a_pagar", 0, 1);
-
-// Cerrar la conexión a la base de datos
-oci_free_statement($stid);
-oci_close($conn);
 
 // Salida del PDF
 $pdf->Output('boleta.pdf', 'I');
