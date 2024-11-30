@@ -15,7 +15,6 @@ create table JRSG_Cliente (
     apellido1_cliente varchar2(20),
     apellido2_cliente varchar2(20),
     telefono_cliente number,
-    direccion_cliente varchar2(100),
     email_cliente varchar2(50),
 
     constraint PK_JRSG_Cliente primary key (id_cliente)
@@ -48,16 +47,6 @@ create table JRSG_Categoria (
     constraint PK_JRSG_Categoria primary key (id_categoria)
 ); 
 
-create table JRSG_Promocion (
-    id_promocion number,
-    nombre_promocion varchar2(25),
-    descuento number,
-    fecha_inicio date,
-    fecha_fin date,
-
-    constraint PK_JRSG_Promocion primary key (id_promocion)
-);
-
 /* Tablas solo con una PK y una FK */
 
 create table JRSG_Venta (
@@ -85,16 +74,13 @@ create table JRSG_Pago (
 create table JRSG_Producto (
     id_producto number,
     id_categoria number,
-    id_promocion number,
     nombre_producto varchar2(60),
     descripcion_producto varchar2(200),
     precio number,
-    precio_descuento number,
     stock number,
 
     constraint PK_JRSG_Producto primary key (id_producto),
-    constraint FK_JRSG_Categoria foreign key (id_categoria) references JRSG_Categoria (id_categoria),
-    constraint FK_JRSG_Promocion foreign key (id_promocion) references JRSG_Promocion (id_promocion)
+    constraint FK_JRSG_Categoria foreign key (id_categoria) references JRSG_Categoria (id_categoria)
 ); 
 
 /* Una PK y Cuatro FK */
@@ -121,7 +107,6 @@ create table JRSG_Detalle_Venta_Producto (
     id_venta number,
     id_producto number,
     cantidad number,
-    nombre_producto varchar2(60),
 
     constraint PK_JRSG_Detalle_Venta_Producto primary key (id_producto, id_venta),
     constraint FK_JRSG_Venta2 foreign key (id_venta) references JRSG_Venta (id_venta),
@@ -140,5 +125,3 @@ create table JRSG_Detalle_Compra_Producto (
     constraint FK_JRSG_Compra foreign key (id_compra) references JRSG_Compra (id_compra),
     constraint FK_JRSG_Producto foreign key (id_producto) references JRSG_Producto (id_producto)
 );
-
---- Compila Correctamente en SQL Oracle: Comprobaciòn 25 nov 2024 - 11:17 am
