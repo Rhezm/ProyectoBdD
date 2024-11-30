@@ -1,20 +1,17 @@
 <?php
 
-// Configuración de la base de datos
 $host = "localhost";
 $user = "C##usuario";
 $password = "123";
 $service_name = "XE";
 $connection_string = "(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=$host)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=$service_name)))";
 
-// Conexión a la base de datos
 $conn = oci_connect($user, $password, $connection_string, 'AL32UTF8');
 if (!$conn) {
     echo "Error de conexión: " . oci_error();
     exit;
 }
 
-// Determinar la acción a realizar
 $action = $_POST['action'];
 
 switch ($action) {
@@ -37,7 +34,6 @@ switch ($action) {
 
 oci_close($conn);
 
-// Función para obtener clientes
 function obtenerClientes($conn) {
     $query = "SELECT id_cliente, nombre_cliente, apellido1_cliente, apellido2_cliente, telefono_cliente, email_cliente
               FROM jrsg_cliente
@@ -65,7 +61,6 @@ function obtenerClientes($conn) {
     echo $filas;
 }
 
-// Función para guardar un cliente
 function guardarCliente($conn) {
     $id_cliente = $_POST['id_cliente'];
     $nombre_cliente = ucfirst(strtolower($_POST['nombre_cliente']));
@@ -100,7 +95,6 @@ function guardarCliente($conn) {
     oci_free_statement($stid);
 }
 
-// Función para actualizar un cliente
 function actualizarCliente($conn) {
     $id_cliente = $_POST['id_cliente'];
     $nombre_cliente = ucfirst(strtolower($_POST['nombre_cliente']));
@@ -133,7 +127,6 @@ function actualizarCliente($conn) {
     oci_free_statement($stid);
 }
 
-// Función para eliminar un cliente
 function eliminarCliente($conn) {
     $id_cliente = $_POST['id_cliente'];
 
