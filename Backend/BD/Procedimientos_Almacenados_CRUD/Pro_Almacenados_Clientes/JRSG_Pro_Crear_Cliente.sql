@@ -3,7 +3,6 @@ create or replace procedure JRSG_Pro_Crear_Cliente (
     apellido1_cliente_p in varchar2,
     apellido2_cliente_p in varchar2,
     telefono_cliente_p in number,
-    direccion_cliente_p in varchar2,
     email_cliente_p in varchar2
 ) is
     contador number;
@@ -16,8 +15,8 @@ create or replace procedure JRSG_Pro_Crear_Cliente (
         else
             lock table JRSG_Cliente in row exclusive mode;
 
-            insert into JRSG_Cliente (id_cliente, nombre_cliente, apellido1_cliente, apellido2_cliente, telefono_cliente, direccion_cliente, email_cliente)
-            values (JRSG_Sec_Generar_ID_Clientes.nextval, nombre_cliente_p, apellido1_cliente_p, apellido2_cliente_p, telefono_cliente_p, direccion_cliente_p, email_cliente_p);
+            insert into JRSG_Cliente (id_cliente, nombre_cliente, apellido1_cliente, apellido2_cliente, telefono_cliente, email_cliente)
+            values (JRSG_Sec_Generar_ID_Clientes.nextval, nombre_cliente_p, apellido1_cliente_p, apellido2_cliente_p, telefono_cliente_p, email_cliente_p);
 
             commit;
             dbms_output.put_line ('Cliente con ID: '|| JRSG_Sec_Generar_ID_Clientes.currval ||' se creo correctamente.');
