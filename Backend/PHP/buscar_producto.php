@@ -11,7 +11,7 @@ if (!$conn) {
     exit;
 }
 
-$searchTerm = strtoupper($_GET['term']); // Convertir el término a mayúsculas para comparación insensible
+$searchTerm = strtoupper($_GET['term']);
 
 $query = "SELECT id_producto, nombre_producto, precio, stock 
           FROM JRSG_PRODUCTO 
