@@ -11,11 +11,6 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
         body, html { height: 100%; display: flex; justify-content: center; align-items: center; }
         body {
-            /*background-image: url(https://images.stockcake.com/public/9/8/0/980f2532-ac9f-4b18-a83f-5d09e5c6e416_large/colorful-yarn-display-stockcake.jpg);*/
-            /*background-size: cover;*/
-            /*background-repeat: no-repeat;*/
-            /*background-position: center;*/
-            /*background-attachment: fixed; */
             background: 
                 radial-gradient(circle at 20% 30%, rgba(255,183,197,0.8), transparent 40%),
                 radial-gradient(circle at 80% 20%, rgba(255,218,185,0.8), transparent 0%),
@@ -31,13 +26,11 @@
             align-items: center;
             padding: 2rem;
         }
-
         .title-container {
             flex: 1.6;
             text-align: left;
             color: #333;
         }
-
         .title-container h1 {
             font-size: 7rem;
             font-family: 'Pacifico', sans-serif;
@@ -48,7 +41,6 @@
                 -1px 1px 0 black,
                 1px 1px 0 black;
         }
-
         .login-container {
             background: rgba(255, 255, 255, 1);
             padding: 3rem;
@@ -86,8 +78,8 @@
             <h2>Iniciar Sesión</h2>
             <p class="welcome-text">¡Bienvenido! Por favor, inicia sesión para continuar.</p>
             <form id="loginForm">
-                <input type="text" id="rut" name="rut" placeholder="Rut" maxlength="12" required>
-                <div id="rutError" class="error"></div>
+                <input type="text" id="id_empleado" name="id_empleado" placeholder="ID Empleado" maxlength="12" required>
+                <div id="idEmpleadoError" class="error"></div>
                 
                 <input type="password" id="password" name="password" placeholder="Contraseña" required>
                 <div id="passwordError" class="error"></div>
@@ -100,34 +92,54 @@
     <script>
         document.getElementById('loginForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            const rut = document.getElementById('rut').value;
+            const idEmpleado = document.getElementById('id_empleado').value.replace(/[\.\-]/g, ''); // Eliminar puntos y guión
             const password = document.getElementById('password').value;
-            const rutError = document.getElementById('rutError');
+            const idEmpleadoError = document.getElementById('idEmpleadoError');
             const passwordError = document.getElementById('passwordError');
             
-            rutError.textContent = passwordError.textContent = '';
+            idEmpleadoError.textContent = passwordError.textContent = '';
             
-            if (!rut) rutError.textContent = 'Por favor, ingrese su RUT.';
-            if (password.length < 6) passwordError.textContent = 'Mínimo 6 caracteres para la contraseña.';
+            if (!idEmpleado) idEmpleadoError.textContent = 'Por favor, ingrese su ID de empleado.';
+            if (password.length < 3) passwordError.textContent = 'Mínimo 3 caracteres para la contraseña.';
             
-            if (!rutError.textContent && !passwordError.textContent) {
-                window.location.href = 'Frontend/Dashboard/nueva_venta.html';
+            if (!idEmpleadoError.textContent && !passwordError.textContent) {
+                fetch('Frontend/Dashboard/login_action.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: new URLSearchParams({
+                        id_empleado: idEmpleado,
+                        password: password
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        window.location.href = 'Frontend/Dashboard/nueva_venta.php';
+                    } else {
+                        idEmpleadoError.textContent = data.message;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    idEmpleadoError.textContent = 'Ocurrió un error inesperado.';
+                });
             }
         });
 
-        const rutInput = document.getElementById("rut");
-
-        rutInput.addEventListener("input", function(event) {
+        const idEmpleadoInput = document.getElementById("id_empleado");
+        idEmpleadoInput.addEventListener("input", function(event) {
             let valor = event.target.value.replace(/\D/g, "").split("").reverse().join("");
-            let rutFormateado = "";
+            let idEmpleadoFormateado = "";
 
             for (let i = 0; i < valor.length; i++) {
-                if (i === 1) rutFormateado = "-" + rutFormateado;
-                if (i === 4 || i === 7) rutFormateado = "." + rutFormateado;
-                rutFormateado = valor[i] + rutFormateado;
+                if (i === 1) idEmpleadoFormateado = "-" + idEmpleadoFormateado;
+                if (i === 4 || i === 7) idEmpleadoFormateado = "." + idEmpleadoFormateado;
+                idEmpleadoFormateado = valor[i] + idEmpleadoFormateado;
             }
 
-            event.target.value = rutFormateado;
+            event.target.value = idEmpleadoFormateado;
         });
     </script>
 </body>
