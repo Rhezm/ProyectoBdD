@@ -1,7 +1,6 @@
 <?php
 header('Content-Type: application/json');
 
-// Configuración de conexión a la base de datos
 $host = "localhost";
 $user = "C##usuario";
 $password = "123";
@@ -16,7 +15,6 @@ if (!$conexion) {
     exit;
 }
 
-// Recibe y decodifica los datos del frontend
 $input = file_get_contents("php://input");
 $data = json_decode($input, true);
 
