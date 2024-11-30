@@ -173,24 +173,17 @@
             const fila = button.closest('tr');
             const cantidadSpan = fila.querySelector('.cantidad');
             const valorActual = parseFloat(cantidadSpan.textContent);
-            
-            // Crear un input para editar
             cantidadSpan.innerHTML = `<input type='number' value='${valorActual}' style='width:50px;box-sizing:border-box;'>`;
-            
-            // Cambiar el botón para guardar
             button.innerHTML = "💾";
             
             button.onclick = function () {
                 const input = cantidadSpan.querySelector('input');
                 if (input) {
                     const nuevaCantidad = parseFloat(input.value);
-                    cantidadSpan.textContent = nuevaCantidad; // Actualiza la cantidad en la tabla
-
-                    // Actualiza el objeto en el array 'datos'
+                    cantidadSpan.textContent = nuevaCantidad;
                     const index = Array.from(fila.parentNode.children).indexOf(fila);
-                    datos[index].cantidad = nuevaCantidad; // Actualiza el array 'datos'
-
-                    actualizarTotales(); // Actualiza los totales
+                    datos[index].cantidad = nuevaCantidad;
+                    actualizarTotales();
                 }
                 button.innerHTML = "✏️";
                 button.onclick = () => editarCantidad(button);
@@ -199,15 +192,10 @@
 
         function eliminarProducto(button) {
             const fila = button.closest('tr');
-                
-            // Obtener el índice del producto a eliminar
             const index = Array.from(fila.parentNode.children).indexOf(fila);
-                
-            // Eliminar el producto del array 'datos'
             datos.splice(index, 1);
-                
-            fila.remove(); // Eliminar la fila de la tabla
-            actualizarTotales(); // Actualizar los totales
+            fila.remove();
+            actualizarTotales();
         }
 
        function verificarCampos() {
